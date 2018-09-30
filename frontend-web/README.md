@@ -1,4 +1,6 @@
-# frontend-web
+# Front-end for Web
+
+This part of the repository contains code required for running the web version of the project's front-end.
 
 ## Project setup
 ```
