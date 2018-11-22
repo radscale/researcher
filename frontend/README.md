@@ -1,6 +1,6 @@
-# Front-end for Web
+# Front-end
 
-This part of the repository contains code required for running the web version of the project's front-end.
+This part of the repository contains code required for running the web and PWA version of the project's front-end.
 
 ## Project setup
 ```
