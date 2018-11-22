@@ -1,17 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title>frontend-web</title>
-  </head>
-  <body>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <link rel="shortcut icon" type="image/png" href="<%= webpackConfig.output.publicPath %>img/icons/researcher-16px.png"
+        sizes="16x16">
+    <link rel="icon" type="image/png" href="<%= webpackConfig.output.publicPath %>img/icons/researcher-32px.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="<%= webpackConfig.output.publicPath %>img/icons/researcher-96px.png" sizes="96x96">
+    <link rel="apple-touch-icon" sizes="180x180" href="<%= webpackConfig.output.publicPath %>img/icons/researcher-180px-white.png">
+
+    <meta name="theme-color" content="#202020">
+    <title>Researcher</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Work+Sans:400,600" rel="stylesheet">
+    <link rel="manifest" href="/manifest.json">
+</head>
+
+<body>
     <noscript>
-      <strong>We're sorry but frontend-web doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+        <strong>We're sorry but Researcher doesn't work properly without JavaScript enabled. Please enable it to
+            continue.</strong>
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
-  </body>
+</body>
+
 </html>

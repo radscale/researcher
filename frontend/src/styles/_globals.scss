@@ -1,0 +1,35 @@
+$font-global: 'Work Sans', 'Avenir', Helvetica, Arial, sans-serif;
+$font-header: 400 34px/40px $font-global;
+$font-header--sub: 400 20px/24px $font-global;
+
+// Main
+$background-body: #fafafa;
+$foreground-body: #393546;
+
+$foreground-footer: #c0c0c0;
+
+$foreground-link: #3a218a;
+$foreground-link--hover: #522bcd;
+
+$foreground-header: #3a218a;
+$foreground-header--sub: #3a218a;
+
+$background-highlight: #efefef;
+
+
+// Buttons
+$background-button: transparent;
+$foreground-button: #502ebf;
+$border-button: 1px solid #502ebf;
+
+$background-button--cta: #502ebf;
+$foreground-button--cta: #fafafa;
+$border-button--cta: 1px solid #502ebf;
+
+$background-button--disabled: transparent;
+$foreground-button--disabled: #a0a0a0;
+$border-button--disabled: 1px solid #a0a0a0;
+
+$background-button--disabled--cta: #a0a0a0;
+$foreground-button--disabled--cta: #fafafa;
+$border-button--disabled--cta: 1px solid #a0a0a0
