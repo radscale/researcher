@@ -13,10 +13,17 @@
         @click="$router.push({path: '/'})"
     >
     </div>
-    <action-button class="navbar-button">
+    <action-button
+        class="navbar-button"
+        @click="$bus.openModal('login')"
+    >
         Log in
     </action-button>
-    <action-button class="navbar-button" cta>
+    <action-button
+        class="navbar-button"
+        cta
+        @click="$bus.openModal('signup')"
+    >
         Sign up
     </action-button>
 </div>

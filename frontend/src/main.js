@@ -1,11 +1,21 @@
 import Vue from 'vue'
 import App from './App.vue'
 
-// router
+// Media queries
+import VueMq from 'vue-mq'
+Vue.use(VueMq, {
+    breakpoints: {
+        sm: 470,
+        md: 1250,
+        lg: Infinity
+    }
+});
+
+// Router
 import router from './router'
 Vue.router = router
 
-// vuex
+// Vuex
 import store from './store'
 
 // vue-resource
@@ -20,7 +30,21 @@ Vue.use(require('@websanova/vue-auth'), {
     router: require('@websanova/vue-auth/drivers/router/vue-router.2.x')
 })
 
-// config
+// Validation
+import Vuelidate from 'vuelidate'
+Vue.use(Vuelidate)
+
+// Event bus
+import bus from './bus.js'
+Object.defineProperties(Vue.prototype, {
+    $bus: {
+        get: function() {
+            return bus;
+        }
+    }
+});
+
+// Config
 Vue.config.productionTip = false
 
 new Vue({

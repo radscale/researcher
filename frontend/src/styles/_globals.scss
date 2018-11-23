@@ -16,15 +16,26 @@ $foreground-header--sub: #3a218a;
 
 $background-highlight: #efefef;
 
+// Modals
+$background-overlay: rgba(#ffffff, 0.8);
+$background-modal: #ffffff;
+$foreground-modal: #393546;
+$border-modal: 1px solid #e0e0e0;
 
 // Buttons
 $background-button: transparent;
 $foreground-button: #502ebf;
 $border-button: 1px solid #502ebf;
+$background-button--hover: transparent;
+$foreground-button--hover: rgba(#502ebf, 0.8);
+$border-button--hover: 1px solid rgba(#502ebf, 0.8);
 
 $background-button--cta: #502ebf;
 $foreground-button--cta: #fafafa;
 $border-button--cta: 1px solid #502ebf;
+$background-button--cta--hover: rgba(#502ebf, 0.8);
+$foreground-button--cta--hover: rgba(#fafafa, 0.8);
+$border-button--cta--hover: 1px solid rgba(#502ebf, 0.8);
 
 $background-button--disabled: transparent;
 $foreground-button--disabled: #a0a0a0;
@@ -32,4 +43,23 @@ $border-button--disabled: 1px solid #a0a0a0;
 
 $background-button--disabled--cta: #a0a0a0;
 $foreground-button--disabled--cta: #fafafa;
-$border-button--disabled--cta: 1px solid #a0a0a0
+$border-button--disabled--cta: 1px solid #a0a0a0;
+
+// Inputs
+$background-input: transparent;
+$foreground-input: #7758dc;
+$border-input: 1px solid #d0d0d0;
+
+$background-input--disabled: #f0f0f0;
+$foreground-input--disabled: #d0d0d0;
+$border-input--disabled: 1px solid #a0a0a0;
+
+$background-input--focus: #ffffff;
+$foreground-input--focus: #502ebf;
+$border-input--focus: 1px solid #502ebf;
+
+$foreground-validation: #ff0000;
+
+$foreground-label: #a0a0a0;
+
+$foreground-placeholder: #a0a0a0;

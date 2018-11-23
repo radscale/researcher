@@ -4,11 +4,16 @@
         <h1>Researcher</h1>
         <p>Research group management suite</p>
         <div class="highlight">
-            <action-button>
+            <action-button
+                @click="$bus.openModal('login')"
+            >
                 Log in
             </action-button>
             or
-            <action-button cta>
+            <action-button
+                cta
+                @click="$bus.openModal('signup')"
+            >
                 Sign up
             </action-button>
         </div>
@@ -16,7 +21,7 @@
 </template>
 
 <script>
-import ActionButton from '@/components/ActionButton.vue';
+import ActionButton from '@/components/ActionButton.vue'
 
 export default {
     name: 'landing',
