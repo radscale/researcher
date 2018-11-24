@@ -4,7 +4,8 @@
         :class="{
             'action-item--list': list,
             'action-item--no-background': noBackground,
-            'action-item--highlight': highlight
+            'action-item--highlight': highlight,
+            'action-item--link': to
         }"
         @click="onClick($event)"
     >
@@ -56,11 +57,18 @@ export default {
         highlight: {
             type: Boolean,
             default: true
+        },
+        to: {
+            type: Object,
+            required: false
         }
     },
     methods: {
         onClick ($event) {
             this.$emit('click', $event)
+            if (this.to) {
+                this.$router.push(this.to)
+            }
         }
     },
     computed: {
@@ -119,6 +127,7 @@ export default {
         text-align: center;
         border-radius: 8px;
         background-color: $background-item;
+        cursor: default;
         transition:
             background-color 150ms ease-out,
             color 150ms ease-out,
@@ -131,6 +140,19 @@ export default {
 
         &--no-background {
             background-color: transparent;
+        }
+
+        &--link {
+            border: $border-item--link;
+            cursor: pointer;
+
+            &:hover {
+                .action-item {
+                    &__name {
+                        text-decoration: underline;
+                    }
+                }
+            }
         }
 
         &--highlight {

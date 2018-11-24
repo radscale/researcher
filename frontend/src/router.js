@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Landing from '@/views/Landing.vue'
 import Home from '@/views/Home.vue'
+import Profile from '@/views/Profile.vue'
 import About from '@/views/About.vue'
 
 Vue.use(Router)
@@ -13,6 +13,16 @@ export default new Router({
             path: '/',
             name: 'home',
             component: Home,
+        },
+        {
+            path: '/profile/:id',
+            name: 'profile',
+            props (route) {
+                return {
+                    id: +route.params.id
+                }
+            },
+            component: Profile
         },
         {
             path: '/about',

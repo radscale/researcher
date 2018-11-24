@@ -41,5 +41,21 @@
             "phd": true,
             "prof": true
         }
+    ],
+    "messages": [
+        {
+            "id": 5,
+            "senderId": 1,
+            "receiverId": 3,
+            "date": 1543044264,
+            "content": "Hej, co tam?"
+        },
+        {
+            "id": 6,
+            "senderId": 3,
+            "receiverId": 1,
+            "date": 1543044264,
+            "content": "Nic, jakoś yję"
+        }
     ]
 }

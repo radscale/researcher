@@ -34,6 +34,12 @@
         highlight
         type="user"
         :item="user"
+        :to="{
+            name: 'profile',
+            params: {
+                id: user.id
+            }
+        }"
     ></action-item>
 </div>
 </template>
