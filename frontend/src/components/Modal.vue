@@ -27,6 +27,7 @@
                             class="modal__close"
                             @click="clickClose"
                             @if="!forced"
+                            faded
                         >
                             <i class="fa fa-times"></i>
                         </action-button>
@@ -137,17 +138,25 @@ export default {
         }
 
         .modal__header {
-            padding: 14px;
+            padding: 14px 18px 8px;
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+
+            h2 {
+                margin: 14px 0;
+            }
         }
 
         .modal__close {
             float: right;
             height: 32px;
+            margin-right: 0;
             margin-left: auto;
         }
 
         .modal__content {
-            padding: 14px;
+            padding: 14px 18px;
 
             h1 {
                 color: $foreground-modal;
@@ -168,9 +177,13 @@ export default {
         }
 
         .modal__actions {
-            padding: 14px;
+            padding: 12px 18px 18px;
             display: flex;
             flex-direction: row-reverse;
+
+            >* {
+                margin-left: 16px;
+            }
         }
     }
 

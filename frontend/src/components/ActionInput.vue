@@ -142,8 +142,7 @@ export default {
         }
 
         &__wrapper {
-            margin: 16px 0px;
-            margin-bottom: 32px;
+            margin: 32px 0px 4px;
             position: relative;
 
             label {
