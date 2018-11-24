@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import Home from '@/views/Home.vue'
 import Profile from '@/views/Profile.vue'
+import Project from '@/views/Project.vue'
 import About from '@/views/About.vue'
 
 Vue.use(Router)
@@ -23,6 +24,16 @@ export default new Router({
                 }
             },
             component: Profile
+        },
+        {
+            path: '/project/:id',
+            name: 'project',
+            props (route) {
+                return {
+                    id: +route.params.id
+                }
+            },
+            component: Project
         },
         {
             path: '/about',

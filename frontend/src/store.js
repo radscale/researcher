@@ -9,7 +9,8 @@ export default new Vuex.Store({
         projects: [],
         users: [],
         messages: [],
-        user: false
+        user: false,
+        project: false
     },
     mutations: {
         setProjects (state, projects) {
@@ -17,6 +18,9 @@ export default new Vuex.Store({
         },
         setUser (state, user) {
             state.user = user
+        },
+        setProject (state, project) {
+            state.project = project
         },
         setMessages (state, messages) {
             state.messages = messages
@@ -29,8 +33,13 @@ export default new Vuex.Store({
             })
         },
         getUser (context, payload = {}) {
-            Vue.axios.get('users?id=' + payload.id).then((res) => {
-                context.commit('setUser', res.data[0])
+            Vue.axios.get('users/' + payload.id).then((res) => {
+                context.commit('setUser', res.data)
+            })
+        },
+        getProject (context, payload = {}) {
+            Vue.axios.get('projects/' + payload.id).then((res) => {
+                context.commit('setProject', res.data)
             })
         },
         updateMessages (context) {
