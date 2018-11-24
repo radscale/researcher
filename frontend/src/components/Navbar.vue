@@ -13,34 +13,43 @@
         @click="$router.push({path: '/'})"
     >
     </div>
-    <action-button
-        v-if="!$auth.check()"
-        class="navbar-button"
-        @click="$bus.openModal('login')"
-    >
-        Log in
-    </action-button>
-    <action-button
-        v-if="!$auth.check()"
-        class="navbar-button"
-        cta
-        @click="$bus.openModal('signup')"
-    >
-        Sign up
-    </action-button>
-    <action-item
-        v-if="user.email"
-        no-background
-        highlight
-        type="user"
-        :item="user"
-        :to="{
-            name: 'profile',
-            params: {
-                id: user.id
-            }
-        }"
-    ></action-item>
+    <div v-if="!$auth.check()">
+        <action-button
+            class="navbar-button"
+            @click="$bus.openModal('login')"
+        >
+            Log in
+        </action-button>
+        <action-button
+            class="navbar-button"
+            cta
+            @click="$bus.openModal('signup')"
+        >
+            Sign up
+        </action-button>
+    </div>
+    <div v-if="user.email">
+        <action-item
+            no-background
+            :highlight="!isOnOwnProfile"
+            type="user"
+            :item="user"
+            :to="{
+                name: 'profile',
+                params: {
+                    id: user.id
+                }
+            }"
+        ></action-item>
+        <action-button
+            class="navbar-button"
+            icon
+            faded
+            @click="$bus.openModal('logout')"
+        >
+            <i class="fas fa-power-off"></i>
+        </action-button>
+    </div>
 </div>
 </template>
 
@@ -67,6 +76,10 @@ export default {
     computed: {
         user () {
             return this.$auth.user()
+        },
+        isOnOwnProfile () {
+            return this.$route.name == 'profile'
+                && this.user.id == this.$route.params.id
         }
     }
 }
@@ -104,6 +117,7 @@ export default {
         width: 48px;
         height: 48px;
         transition: opacity 250ms ease-out;
+        cursor: pointer;
 
         margin-right: auto; // flex spacer
 

@@ -1,14 +1,20 @@
 <template>
     <div id="app">
-        <navbar>
+        <!-- Main structure -->
+        <navbar v-show="$auth.ready()">
         </navbar>
-        <router-view v-if="$auth.ready()"/>
+        <transition name="slide-fast" mode="out-in" appear>
+            <router-view v-if="$auth.ready()" :key="$route.fullPath" />
+        </transition>
         <footer>
             Made by Adrian Hernik and Marcin Krykowski
         </footer>
+
+        <!-- Login modal -->
         <modal
             name="login"
             :submit="submitLogin"
+            v-if="!$auth.check()"
         >
             <template slot="header">
                 <h2>Log in</h2>
@@ -47,9 +53,11 @@
                 </action-button>
             </template>
         </modal>
+        <!-- Signup modal -->
         <modal
             name="signup"
             :submit="submitSignup"
+            v-if="!$auth.check()"
         >
             <template slot="header">
                 <h2>Sign up</h2>
@@ -99,6 +107,37 @@
                 </action-button>
             </template>
         </modal>
+        <!-- Logout modal -->
+        <modal
+            name="logout"
+            :submit="submitLogout"
+            v-if="$auth.check()"
+        >
+            <template slot="header">
+                <h2>Confirm logout</h2>
+            </template>
+            <template slot="content">
+                <p>Are you sure you want to log out?</p>
+            </template>
+            <template slot="actions">
+                <action-button
+                    type="button"
+                    cta
+                >
+                    <span>Log out</span>
+                </action-button>
+            </template>
+        </modal>
+
+        <!-- Loader -->
+        <transition name="fade-fast" mode="out-in">
+            <div class="loader" v-show="$bus.loading">
+                <div class="loader__container">
+                    <span>{{ $bus.loadingLabel }}</span>
+                    <!-- <i class="fas fa-cog fa-spin"></i> -->
+                </div>
+            </div>
+        </transition>
     </div>
 </template>
 
@@ -119,7 +158,9 @@ export default {
        ActionInput
     },
     created () {
-
+        // Check for premature $auth ready state
+        if (this.$auth.ready())
+            this.$bus.loading = false
     },
     methods: {
         submitLogin (event) {
@@ -143,16 +184,26 @@ export default {
                 this.$v.signup.password1.$touch()
                 this.$v.signup.password2.$touch()
             }
+        },
+        submitLogout (event) {
+            event.preventDefault();
+            this.$auth.logout();
         }
     },
     watch: {
         user () {
             this.$bus.closeModals()
+        },
+        authReady () {
+            this.$bus.loading = false
         }
     },
     computed: {
         user () {
             return this.$auth.user()
+        },
+        authReady () {
+            return this.$auth.ready()
         }
     },
     validations: {
@@ -231,6 +282,36 @@ footer {
     color: $foreground-footer;
 }
 
+.loader {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    cursor: default;
+    justify-content: center;
+    align-items: center;
+    background-color: $background-loader;
+    z-index: 20;
+
+    &__container {
+        color: $foreground-loader;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        > * {
+            margin: 8px;
+        }
+
+        svg {
+            font-size: 24px;
+        }
+    }
+}
+
 a,
 a:active,
 a:visited {
@@ -300,6 +381,16 @@ h2 {
 }
 .fade-enter,
 .fade-leave-to {
+    opacity: 0;
+}
+
+/* Fast fade */
+.fade-fast-enter-active,
+.fade-fast-leave-active {
+    transition: 200ms opacity ease-in-out;
+}
+.fade-fast-enter,
+.fade-fast-leave-to {
     opacity: 0;
 }
 </style>

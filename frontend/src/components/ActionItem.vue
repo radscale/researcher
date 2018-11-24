@@ -32,6 +32,7 @@
 
 <script>
 import {STATES} from '@/dicts.js'
+import {parseSuffix} from '@/utils.js'
 
 export default {
     name: 'action-item',
@@ -81,18 +82,7 @@ export default {
             if (this.type == 'user') {
                 icon += 'fa-user'
                 name = this.item.firstName + ' ' + this.item.lastName
-                if (this.item.prof) {
-                    suffix += 'Prof.'
-                } else if (this.item.phd) {
-                    suffix += 'PhD'
-                } else if (this.item.msc) {
-                    suffix += 'MSc'
-                } else if (this.item.bsc) {
-                    suffix += 'BSc'
-                }
-                if (this.item.eng) {
-                    suffix += ' eng.'
-                }
+                suffix = parseSuffix(this.item)
             } else if (this.type == 'project') {
                 icon += 'fa-project-diagram'
                 name = this.item.name
@@ -145,6 +135,10 @@ export default {
         &--link {
             border: $border-item--link;
             cursor: pointer;
+
+            &:not(.action-item--highlight) {
+                border: $border-item--link--no-highlight;
+            }
 
             &:hover {
                 .action-item {

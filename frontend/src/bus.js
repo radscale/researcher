@@ -5,6 +5,8 @@ export default new Vue({
         openModal (name) {
             if (name in this.modals) {
                 this.modals[name].open = true;
+            } else {
+                console.error('Invalid modal invocation: %o', name)
             }
         },
         closeModals() {
@@ -22,8 +24,13 @@ export default new Vue({
                 },
                 signup: {
                     open: false
+                },
+                logout: {
+                    open: false
                 }
-            }
+            },
+            loading: true,
+            loadingLabel: 'Loading...'
         }
     }
 });

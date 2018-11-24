@@ -16,6 +16,10 @@ $foreground-header--sub: #3a218a;
 
 $background-highlight: #efefef;
 
+// Loader
+$background-loader: rgba(#fafafa, 0.5);
+$foreground-loader: #868291;
+
 // Modals
 $background-overlay: rgba(#ffffff, 0.8);
 $background-modal: #ffffff;
@@ -36,6 +40,13 @@ $border-button--cta: 1px solid #502ebf;
 $background-button--cta--hover: rgba(#502ebf, 0.8);
 $foreground-button--cta--hover: rgba(#fafafa, 0.8);
 $border-button--cta--hover: 1px solid rgba(#502ebf, 0.8);
+
+$background-button--faded: transparent;
+$foreground-button--faded: #a1a1a1;
+$border-button--faded: 1px solid transparent;
+$background-button--faded--hover: transparent;
+$foreground-button--faded--hover: rgba(#a1a1a1, 0.8);
+$border-button--faded--hover: 1px solid transparent;
 
 $background-button--disabled: transparent;
 $foreground-button--disabled: #a0a0a0;
@@ -58,16 +69,17 @@ $background-input--focus: #ffffff;
 $foreground-input--focus: #502ebf;
 $border-input--focus: 1px solid #502ebf;
 
-$foreground-validation: #ff0000;
+$foreground-validation: #b10b0b;
 
 $foreground-label: #a0a0a0;
 
 $foreground-placeholder: #a0a0a0;
 
-// Itmems
+// Items
 $background-item: #f0f0f0;
 $foreground-item: #808080;
 $border-item--link: 1px solid #d1c6f5;
+$border-item--link--no-highlight: 1px solid transparent;
 
 $foreground-item__status: #b0b0b0;
 $foreground-item__suffix: #b0b0b0;

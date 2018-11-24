@@ -4,7 +4,8 @@
     :class="{
         'action-button--cta': cta,
         'action-button--disabled': disabled,
-        'action-button--icon': icon
+        'action-button--icon': icon,
+        'action-button--faded': faded
     }"
     @click="onClick"
 >
@@ -31,6 +32,10 @@ export default {
         icon: {
             type: Boolean,
             default: false
+        },
+        faded: {
+            type: Boolean,
+            default: false
         }
     },
     methods: {
@@ -47,6 +52,7 @@ export default {
     .action-button {
         display: inline-block;
         font-family: $font-global;
+        font-size: 16px;
         outline: none;
         margin: 0 4px;
         padding: 8px;
@@ -77,6 +83,12 @@ export default {
             color: $foreground-button--cta;
         }
 
+        &--faded {
+            background-color: $background-button--faded;
+            border: $border-button--faded;
+            color: $foreground-button--faded;
+        }
+
         &--disabled {
             background-color: $background-button--disabled;
             border: $border-button--disabled;
@@ -99,6 +111,12 @@ export default {
                 background-color: $background-button--cta--hover;
                 border: $border-button--cta--hover;
                 color: $foreground-button--cta--hover;
+            }
+
+            &.action-button--faded {
+                background-color: $background-button--faded--hover;
+                border: $border-button--faded--hover;
+                color: $foreground-button--faded--hover;
             }
         }
     }
