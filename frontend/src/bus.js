@@ -6,6 +6,11 @@ export default new Vue({
             if (name in this.modals) {
                 this.modals[name].open = true;
             }
+        },
+        closeModals() {
+            for (name in this.modals) {
+                this.modals[name].open = false;
+            }
         }
     },
     data () {

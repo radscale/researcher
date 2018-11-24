@@ -2,40 +2,66 @@
 <div
     class="navbar"
     :class="{
-        'navbar--free': $route.meta.freeNavbar
+        'navbar--free': free
     }"
 >
     <div
         class="logo"
         :class="{
-            'logo--hidden': $route.meta.hiddenLogo
+            'logo--hidden': hiddenLogo
         }"
         @click="$router.push({path: '/'})"
     >
     </div>
     <action-button
+        v-if="!$auth.check()"
         class="navbar-button"
         @click="$bus.openModal('login')"
     >
         Log in
     </action-button>
     <action-button
+        v-if="!$auth.check()"
         class="navbar-button"
         cta
         @click="$bus.openModal('signup')"
     >
         Sign up
     </action-button>
+    <action-item
+        v-if="user.email"
+        no-background
+        highlight
+        type="user"
+        :item="user"
+    ></action-item>
 </div>
 </template>
 
 <script>
 import ActionButton from '@/components/ActionButton.vue'
+import ActionItem from '@/components/ActionItem.vue'
 
 export default {
     name: 'navbar',
     components: {
-        ActionButton
+        ActionButton,
+        ActionItem
+    },
+    props: {
+        free: {
+            type: Boolean,
+            default: false
+        },
+        hiddenLogo: {
+            type: Boolean,
+            default: false
+        }
+    },
+    computed: {
+        user () {
+            return this.$auth.user()
+        }
     }
 }
 </script>
@@ -66,7 +92,7 @@ export default {
 
     .logo {
         background-image: url('~@/assets/logo-transparent-nb-420px.png');
-        background-size: 48px;
+        background-size: 34px;
         background-position: center;
         background-repeat: no-repeat;
         width: 48px;

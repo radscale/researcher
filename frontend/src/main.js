@@ -18,16 +18,39 @@ Vue.router = router
 // Vuex
 import store from './store'
 
-// vue-resource
-import VueResource from 'vue-resource'
-Vue.use(VueResource)
-Vue.http.options.root = 'https://api-demo.websanova.com/api/v1'; // debugging
+// Requests
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+Vue.use(VueAxios, axios)
+Vue.axios.defaults.baseURL = 'http://' + document.location.hostname + ':3000'; // debugging
 
 // vue-auth
 Vue.use(require('@websanova/vue-auth'), {
-    auth: require('@websanova/vue-auth/drivers/auth/bearer'),
-    http: require('@websanova/vue-auth/drivers/http/vue-resource.1.x'),
-    router: require('@websanova/vue-auth/drivers/router/vue-router.2.x')
+    auth: {
+        request: function (req, token) {
+            this.options.http._setHeaders.call(this, req, {Authorization: 'Bearer ' + token});
+        },
+        response: function (res) {
+            var headers = this.options.http._getHeaders.call(this, res),
+                token = headers.Authorization || headers.authorization;
+    
+            if (token) {
+                token = token.split(/Bearer\:?\s?/i);
+                
+                return token[token.length > 1 ? 1 : 0].trim();
+            }
+            // return 'testToken'
+        }
+    },
+    http: require('@websanova/vue-auth/drivers/http/axios.1.x'),
+    router: require('@websanova/vue-auth/drivers/router/vue-router.2.x'),
+    authRedirect: {
+        path: '/'
+    }
+    // parseUserData: function (data) {
+    //     debugger
+    //     return {}
+    // }
 })
 
 // Validation

@@ -9,8 +9,10 @@
     },
     "dependencies": {
         "@websanova/vue-auth": "^2.21.14-beta",
+        "axios": "^0.18.0",
         "lodash": "^4.17.11",
         "vue": "^2.5.17",
+        "vue-axios": "^2.1.4",
         "vue-mq": "^0.2.1",
         "vue-resource": "^1.5.1",
         "vue-resource-mock": "0.0.11",
@@ -22,6 +24,7 @@
         "@vue/cli-plugin-babel": "^3.1.1",
         "@vue/cli-plugin-eslint": "^3.1.5",
         "@vue/cli-service": "^3.1.4",
+        "json-server": "^0.14.0",
         "node-sass": "^4.10.0",
         "sass-loader": "^7.0.1",
         "vue-template-compiler": "^2.5.17"

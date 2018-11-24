@@ -1,0 +1,45 @@
+{
+    "projects": [
+        {
+            "id": 1,
+            "name": "Test project",
+            "description": "Test project description",
+            "status": "in-progress"
+        }
+    ],
+    "users": [
+        {
+            "id": 1,
+            "email": "test@researcher.com",
+            "firstName": "Test",
+            "lastName": "User",
+            "eng": true,
+            "bsc": true,
+            "msc": false,
+            "phd": false,
+            "prof": false
+        },
+        {
+            "id": 2,
+            "email": "test2@researcher.com",
+            "firstName": "Jan",
+            "lastName": "Kowalski",
+            "eng": false,
+            "bsc": true,
+            "msc": true,
+            "phd": true,
+            "prof": false
+        },
+        {
+            "id": 3,
+            "email": "aa@researcher.com",
+            "firstName": "Maria",
+            "lastName": "Nowak",
+            "eng": false,
+            "bsc": true,
+            "msc": true,
+            "phd": true,
+            "prof": true
+        }
+    ]
+}

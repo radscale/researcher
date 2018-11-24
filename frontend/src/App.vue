@@ -1,9 +1,8 @@
 <template>
     <div id="app">
         <navbar>
-            
         </navbar>
-        <router-view/>
+        <router-view v-if="$auth.ready()"/>
         <footer>
             Made by Adrian Hernik and Marcin Krykowski
         </footer>
@@ -126,7 +125,10 @@ export default {
         submitLogin (event) {
             event.preventDefault();
             if (!this.$v.login.$invalid) {
-                this.$auth.login(this.login.email, this.login.password)
+                this.$auth.login({
+                    email: this.login.email,
+                    password: this.login.password
+                })
             } else {
                 this.$v.login.email.$touch()
                 this.$v.login.password.$touch()
@@ -141,6 +143,16 @@ export default {
                 this.$v.signup.password1.$touch()
                 this.$v.signup.password2.$touch()
             }
+        }
+    },
+    watch: {
+        user () {
+            this.$bus.closeModals()
+        }
+    },
+    computed: {
+        user () {
+            return this.$auth.user()
         }
     },
     validations: {
