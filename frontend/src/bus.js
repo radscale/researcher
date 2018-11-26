@@ -24,7 +24,6 @@ export default new Vue({
                 let delay = typeof message.timeout == 'number'
                     ? message.timeout
                     : MESSAGE_TIMEOUT
-                console.log('Delay: %o', delay)
 
                 message._timeout = setTimeout(() => {
                     this.removeMessage(messageId)
@@ -34,7 +33,6 @@ export default new Vue({
             this.$set(this.messages, messageId, messageObject)
         },
         removeMessage (messageId) {
-            console.log('Removing message: %o', this.messages[messageId])
             clearTimeout(this.messages[messageId]._timeout)
             this.$delete(this.messages, messageId)
         }
