@@ -25,7 +25,7 @@
             v-if="list && ['project', 'task', 'ad-hoc'].includes(type)"
             class="action-item__status"
         >
-        {{display.status}}
+        {{display.status | capitalize}}
         </span>
     </div>
 </template>

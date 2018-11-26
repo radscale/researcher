@@ -26,6 +26,11 @@ $background-modal: #ffffff;
 $foreground-modal: #393546;
 $border-modal: 1px solid #e0e0e0;
 
+// Pop-ups
+$background-popup: #ffffff;
+$foreground-popup: #393546;
+$border-popup: 1px solid #e0e0e0;
+
 // Buttons
 $background-button: transparent;
 $foreground-button: #502ebf;
@@ -88,3 +93,6 @@ $foreground-item__icon: #b0b0b0;
 $foreground-item--highlight__icon: #b19eee;
 $foreground-item--highlight__name: #502ebf;
 $foreground-item--highlight__suffix: #502ebf;
+
+// Entity views
+$foreground-entity-icon: #b19eee;

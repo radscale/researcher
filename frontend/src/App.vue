@@ -10,6 +10,21 @@
             Made by Adrian Hernik and Marcin Krykowski
         </footer>
 
+        <!-- Pop-up messages -->
+        <div class="popup-list">
+            <transition-group name="pop-up" appear>
+                <popup
+                    v-for="(message, key) in messages"
+                    :key="key"
+                    :type="message.type"
+                    :forced="message.forced"
+                    @close="$bus.removeMessage(key)"
+                >
+                    {{ message.content }}
+                </popup>
+            </transition-group>
+        </div>
+
         <!-- Login modal -->
         <modal
             name="login"
@@ -146,6 +161,7 @@ import Navbar from '@/components/Navbar.vue'
 import Modal from '@/components/Modal.vue'
 import ActionButton from '@/components/ActionButton.vue'
 import ActionInput from '@/components/ActionInput.vue'
+import Popup from '@/components/Popup.vue'
 
 import {required, email, minLength} from 'vuelidate/lib/validators'
 
@@ -155,7 +171,8 @@ export default {
        Navbar,
        Modal,
        ActionButton,
-       ActionInput
+       ActionInput,
+       Popup
     },
     created () {
         // Check for premature $auth ready state
@@ -204,6 +221,9 @@ export default {
         },
         authReady () {
             return this.$auth.ready()
+        },
+        messages () {
+            return this.$bus.messages
         }
     },
     validations: {
@@ -341,6 +361,14 @@ h2 {
     padding: 24px 32px;
 }
 
+// Pop-ups
+.popup-list {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
 // Animations
 /* Horizontal slide */
 .slide-enter-active {
@@ -372,6 +400,22 @@ h2 {
 .slide-fast-leave-to {
     opacity: 0;
     transform: translate3d(0, 10px, 0);
+}
+
+/* Vertical slide */
+.pop-up-enter-active {
+    transition: 400ms opacity ease-in-out, 400ms transform ease-out;
+}
+.pop-up-leave-active {
+    transition: 400ms opacity ease-in-out, 400ms transform ease-in;
+}
+.pop-up-enter {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0);
+}
+.pop-up-leave-to {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0);
 }
 
 /* Standard fade */

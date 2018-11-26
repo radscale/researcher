@@ -33,11 +33,11 @@ export default {
         }
     },
     mounted () {
-        this.$store.dispatch('getUser', {id: this.id})
+        // this.$store.dispatch('getUser', {id: this.id})
     },
     computed: {
         item () {
-            return this.$store.state.user
+            return this.$store.state.currentUser.item
         },
         isMe () {
             return this.item.id == this.$auth.user().id

@@ -1,16 +1,28 @@
 <template>
     <div class="project">
-        <h1>{{item.name}}</h1>
-        <!-- <h2>Project list</h2>
-        <ul class="list">
-            <action-item
-                type='project'
-                list
-                v-for="project in projects"
-                :item="project"
-                :key="project.id"
-            ></action-item>
-        </ul> -->
+        <div class="project__header">
+            <i
+                class="fas fa-project-diagram"
+                title="Project"
+            ></i>
+            <h1>{{item.name}}</h1>
+        </div>
+        <div class="project__description">
+            <h2>Description</h2>
+            <p>{{item.description}}</p>
+        </div>
+        <div class="project__tasks">
+            <h2>Task list</h2>
+            <ul class="list">
+                <action-item
+                    type='task'
+                    list
+                    v-for="task in tasks"
+                    :item="task"
+                    :key="task.id"
+                ></action-item>
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -36,7 +48,10 @@ export default {
     },
     computed: {
         item () {
-            return this.$store.state.project
+            return this.$store.state.currentProject.item
+        },
+        tasks () {
+            return this.$store.state.currentProject.tasks
         }
     }
 }
@@ -48,5 +63,21 @@ export default {
 .project {
     margin: 50px auto;
     padding: 8px 24px;
+
+    &__header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        i {
+            font-size: 20px;
+            margin: 0 18px 0 8px;
+            color: $foreground-entity-icon;
+        }
+
+        h1 {
+            font-weight: 400;
+        }
+    }
 }
 </style>

@@ -3,9 +3,46 @@
         {
             "id": 1,
             "name": "Test project",
-            "description": "Test project description",
+            "description": "Pariatur sint culpa excepteur pariatur.",
             "status": "in-progress"
+        },
+        {
+            "id": 2,
+            "name": "Another project",
+            "description": "Ad velit deserunt excepteur eu aliqua nostrud veniam nostrud.",
+            "status": "created"
         }
+    ],
+    "tasks": [
+        {
+            "id": 1,
+            "projectId": 1,
+            "name": "Test task 1",
+            "description": "Eiusmod minim velit veniam laboris anim sunt ex laborum veniam exercitation proident dolore consequat officia.",
+            "status": "created"
+        },
+        {
+            "id": 2,
+            "projectId": 1,
+            "name": "Test task 2",
+            "description": "Deserunt sunt labore aliquip sunt laborum Lorem esse cillum.",
+            "status": "in-progress"
+        },
+        {
+            "id": 3,
+            "projectId": 2,
+            "name": "Test task 3",
+            "description": "Ex mollit elit et fugiat proident.",
+            "status": "created"
+        },
+        {
+            "id": 4,
+            "projectId": 1,
+            "name": "Test task 4",
+            "description": "Elit laborum nostrud ea eu ex eiusmod sunt aute occaecat minim nulla ea.",
+            "status": "created"
+        }
+
     ],
     "users": [
         {
@@ -48,14 +85,16 @@
             "senderId": 1,
             "receiverId": 3,
             "date": 1543044264,
-            "content": "Hej, co tam?"
+            "content": "Hej, co tam?",
+            "read": false 
         },
         {
             "id": 6,
             "senderId": 3,
             "receiverId": 1,
             "date": 1543044264,
-            "content": "Nic, jakoś yję"
+            "content": "Nic, jakoś zyję",
+            "read": false
         }
     ]
 }

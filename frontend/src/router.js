@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import store from './store'
 import Router from 'vue-router'
 
 import Home from '@/views/Home.vue'
@@ -23,7 +24,12 @@ export default new Router({
                     id: +route.params.id
                 }
             },
-            component: Profile
+            component: Profile,
+            beforeEnter: function (to, from, next) {
+                store.dispatch('getUser', {id: to.params.id}).then(next, error => {
+                    
+                })
+            }
         },
         {
             path: '/project/:id',

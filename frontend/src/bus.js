@@ -1,5 +1,7 @@
 import Vue from 'vue'
 
+const MESSAGE_TIMEOUT = 5000
+
 export default new Vue({
     methods: {
         openModal (name) {
@@ -9,10 +11,32 @@ export default new Vue({
                 console.error('Invalid modal invocation: %o', name)
             }
         },
-        closeModals() {
+        closeModals () {
             for (name in this.modals) {
                 this.modals[name].open = false;
             }
+        },
+        pushMessage (message) {
+            let messageObject = message
+            let messageId = this.$data._messageCount++
+
+            if (message.timeout !== false) {
+                let delay = typeof message.timeout == 'number'
+                    ? message.timeout
+                    : MESSAGE_TIMEOUT
+                console.log('Delay: %o', delay)
+
+                message._timeout = setTimeout(() => {
+                    this.removeMessage(messageId)
+                }, delay)
+            }
+
+            this.$set(this.messages, messageId, messageObject)
+        },
+        removeMessage (messageId) {
+            console.log('Removing message: %o', this.messages[messageId])
+            clearTimeout(this.messages[messageId]._timeout)
+            this.$delete(this.messages, messageId)
         }
     },
     data () {
@@ -29,6 +53,8 @@ export default new Vue({
                     open: false
                 }
             },
+            messages: {},
+            _messageCount: 0,
             loading: true,
             loadingLabel: 'Loading...'
         }
