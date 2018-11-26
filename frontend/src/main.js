@@ -19,10 +19,9 @@ Vue.router = router
 import store from './store'
 
 // Requests
-import axios from 'axios'
 import VueAxios from 'vue-axios'
+import axios from './axios'
 Vue.use(VueAxios, axios)
-Vue.axios.defaults.baseURL = 'http://' + document.location.hostname + ':3000'; // debugging
 
 // vue-auth
 Vue.use(require('@websanova/vue-auth'), {

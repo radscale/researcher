@@ -26,8 +26,9 @@ export default new Router({
             },
             component: Profile,
             beforeEnter: function (to, from, next) {
+                
                 store.dispatch('getUser', {id: to.params.id}).then(next, error => {
-                    
+
                 })
             }
         },

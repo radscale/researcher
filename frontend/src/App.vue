@@ -1,5 +1,8 @@
 <template>
     <div id="app">
+        <!-- Progress bar -->
+        <vue-progress-bar></vue-progress-bar>
+
         <!-- Main structure -->
         <navbar v-show="$auth.ready()">
         </navbar>
@@ -157,6 +160,8 @@
 </template>
 
 <script>
+import axios from '@/axios'
+
 import Navbar from '@/components/Navbar.vue'
 import Modal from '@/components/Modal.vue'
 import ActionButton from '@/components/ActionButton.vue'
@@ -178,6 +183,16 @@ export default {
         // Check for premature $auth ready state
         if (this.$auth.ready())
             this.$bus.loading = false
+
+        // Set up axios interceptors
+        axios.interceptors.request.use(config => {
+            this.$Progress.start()
+            return config
+        })
+        axios.interceptors.response.use(response => {
+            this.$Progress.finish()
+            return response
+        })
     },
     methods: {
         submitLogin (event) {
@@ -367,6 +382,11 @@ h2 {
     bottom: 0;
     left: 0;
     right: 0;
+}
+
+// Lists
+ul {
+    padding: 0 8px;
 }
 
 // Animations

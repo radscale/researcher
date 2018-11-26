@@ -19,13 +19,13 @@
             v-if="type == 'user'"
             class="action-item__suffix"
         >
-        {{display.suffix}}
+            {{display.suffix}}
         </span>
         <span
             v-if="list && ['project', 'task', 'ad-hoc'].includes(type)"
             class="action-item__status"
         >
-        {{display.status | capitalize}}
+            {{display.status | capitalize}}
         </span>
     </div>
 </template>
@@ -110,7 +110,7 @@ export default {
         display: inline-block;
         font-family: $font-global;
         outline: none;
-        margin: 0 4px;
+        margin: 8px 4px;
         padding: 8px;
         line-height: 16px;
         min-width: 32px;
