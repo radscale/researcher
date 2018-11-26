@@ -11,6 +11,16 @@ Vue.use(VueMq, {
     }
 });
 
+// Event bus
+import bus from './bus.js'
+Object.defineProperties(Vue.prototype, {
+    $bus: {
+        get: function() {
+            return bus;
+        }
+    }
+});
+
 // Router
 import router from './router'
 Vue.router = router
@@ -19,10 +29,9 @@ Vue.router = router
 import store from './store'
 
 // Requests
-import axios from 'axios'
 import VueAxios from 'vue-axios'
+import axios from './axios'
 Vue.use(VueAxios, axios)
-Vue.axios.defaults.baseURL = 'http://' + document.location.hostname + ':3000'; // debugging
 
 // vue-auth
 Vue.use(require('@websanova/vue-auth'), {
@@ -57,15 +66,12 @@ Vue.use(require('@websanova/vue-auth'), {
 import Vuelidate from 'vuelidate'
 Vue.use(Vuelidate)
 
-// Event bus
-import bus from './bus.js'
-Object.defineProperties(Vue.prototype, {
-    $bus: {
-        get: function() {
-            return bus;
-        }
-    }
-});
+// Filters
+Vue.filter('capitalize', function (value) {
+    if (!value) return ''
+    value = value.toString()
+    return value.charAt(0).toUpperCase() + value.slice(1)
+})
 
 // Config
 Vue.config.productionTip = false

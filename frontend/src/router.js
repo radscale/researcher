@@ -1,10 +1,12 @@
 import Vue from 'vue'
+import store from './store'
+import bus from './bus.js'
 import Router from 'vue-router'
 
 import Home from '@/views/Home.vue'
 import Profile from '@/views/Profile.vue'
 import Project from '@/views/Project.vue'
-import About from '@/views/About.vue'
+import Task from '@/views/Task.vue'
 
 Vue.use(Router)
 
@@ -14,6 +16,14 @@ export default new Router({
             path: '/',
             name: 'home',
             component: Home,
+            beforeEnter: function (to, from, next) {
+                store.dispatch('updateProjects', {id: to.params.id}).then(next, error => {
+                    bus.pushMessage({
+                        type: 'error',
+                        content: 'Could not load data.'
+                    })
+                })
+            }
         },
         {
             path: '/profile/:id',
@@ -23,7 +33,15 @@ export default new Router({
                     id: +route.params.id
                 }
             },
-            component: Profile
+            component: Profile,
+            beforeEnter: function (to, from, next) {
+                store.dispatch('getUser', {id: to.params.id}).then(next, error => {
+                    bus.pushMessage({
+                        type: 'error',
+                        content: 'Could not load profile data.'
+                    })
+                })
+            }
         },
         {
             path: '/project/:id',
@@ -33,12 +51,33 @@ export default new Router({
                     id: +route.params.id
                 }
             },
-            component: Project
+            component: Project,
+            beforeEnter: function (to, from, next) {
+                store.dispatch('getProject', {id: to.params.id}).then(next, error => {
+                    bus.pushMessage({
+                        type: 'error',
+                        content: 'Could not load project data.'
+                    })
+                })
+            }
         },
         {
-            path: '/about',
-            name: 'about',
-            component: About
+            path: '/task/:id',
+            name: 'task',
+            props (route) {
+                return {
+                    id: +route.params.id
+                }
+            },
+            component: Task,
+            beforeEnter: function (to, from, next) {
+                store.dispatch('getTask', {id: to.params.id}).then(next, error => {
+                    bus.pushMessage({
+                        type: 'error',
+                        content: 'Could not load task data.'
+                    })
+                })
+            }
         }
 
         // {

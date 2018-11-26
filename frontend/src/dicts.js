@@ -1,3 +1,5 @@
 export const STATES = {
-        'in-progress': 'In progress'
+        'created': 'created',
+        'in-progress': 'in progress',
+        'completed': 'completed'
 }

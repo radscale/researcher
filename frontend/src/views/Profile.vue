@@ -1,5 +1,5 @@
 <template>
-    <div class="profile">
+    <section class="profile">
         <h1>{{item.firstName}} {{item.lastName}}</h1>
         <h2 v-if="isMe">It's you!</h2>
         <!-- <h2>Project list</h2>
@@ -12,7 +12,7 @@
                 :key="project.id"
             ></action-item>
         </ul> -->
-    </div>
+    </section>
 </template>
 
 <script>
@@ -33,11 +33,11 @@ export default {
         }
     },
     mounted () {
-        this.$store.dispatch('getUser', {id: this.id})
+        // this.$store.dispatch('getUser', {id: this.id})
     },
     computed: {
         item () {
-            return this.$store.state.user
+            return this.$store.state.currentUser.item
         },
         isMe () {
             return this.item.id == this.$auth.user().id
@@ -53,7 +53,6 @@ export default {
 @import '~@/styles/globals';
 
 .profile {
-    margin: 50px auto;
-    padding: 8px 24px;
+    
 }
 </style>

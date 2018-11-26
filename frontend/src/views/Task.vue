@@ -1,40 +1,32 @@
 <template>
-    <section class="project">
-        <div class="project__header">
+    <section class="task">
+        <div class="task__header task__header--parent">
+            <action-item
+                type="project"
+                :item="item.project"
+                no-background
+                :to="{
+                    name: 'project',
+                    params: {
+                        id: item.project.id
+                    }
+                }"
+            ></action-item>
+        </div>
+        <div class="task__header">
+            <i class="fas fa-level-up-alt fa-rotate-90 task__header__directory-arrow"></i>
             <i
-                class="fas fa-project-diagram"
-                title="Project"
+                class="fas fa-scroll"
+                title="Task"
             ></i>
             <h1>{{item.name}}</h1>
         </div>
-        <div class="project__description">
+        <div class="task__description">
             <section-block>
                 <template slot="title">
                     <h2>Description</h2>
                 </template>
                 <p>{{item.description}}</p>
-            </section-block>
-        </div>
-        <div class="project__tasks">
-            <section-block>
-                <template slot="title">
-                    <h2>Task list</h2>
-                </template>
-                <ul class="list">
-                    <action-item
-                        type='task'
-                        list
-                        v-for="task in tasks"
-                        :item="task"
-                        :key="task.id"
-                        :to="{
-                            name: 'task',
-                            params: {
-                                id: task.id
-                            }
-                        }"
-                    ></action-item>
-                </ul>
             </section-block>
         </div>
     </section>
@@ -47,7 +39,7 @@ import SectionBlock from '@/components/SectionBlock.vue'
 import _ from 'lodash'
 
 export default {
-    name: 'project',
+    name: 'task',
     components: {
         ActionItem,
         ActionButton,
@@ -60,14 +52,11 @@ export default {
         }
     },
     mounted () {
-        // this.$store.dispatch('getProject', {id: this.id})
+        // this.$store.dispatch('getTask', {id: this.id})
     },
     computed: {
         item () {
-            return this.$store.state.currentProject.item
-        },
-        tasks () {
-            return this.$store.state.currentProject.tasks
+            return this.$store.state.currentTask.item
         }
     }
 }
@@ -76,7 +65,7 @@ export default {
 <style scoped lang="scss">
 @import '~@/styles/globals';
 
-.project {
+.task {
     &__header {
         display: flex;
         flex-direction: row;
@@ -86,10 +75,28 @@ export default {
             font-size: 20px;
             margin: 0 18px 0 8px;
             color: $foreground-entity-icon;
+
+            &.task__header__directory-arrow {
+                margin: 0 20px 0 24px;
+                opacity: 0.5;
+            }
         }
 
         h1 {
             font-weight: 400;
+        }
+
+        &--parent {
+            margin-bottom: -8px;
+
+            i {
+                font-size: 16px;
+                margin: 0 10px 0 4px;
+            }
+
+            h2 {
+                font-size: 16px;
+            }
         }
     }
 }

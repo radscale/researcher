@@ -12,7 +12,7 @@ $foreground-link: #3a218a;
 $foreground-link--hover: #522bcd;
 
 $foreground-header: #3a218a;
-$foreground-header--sub: #3a218a;
+$foreground-header--sub: #9c91c0;
 
 $background-highlight: #efefef;
 
@@ -26,13 +26,24 @@ $background-modal: #ffffff;
 $foreground-modal: #393546;
 $border-modal: 1px solid #e0e0e0;
 
+// Blocks
+$background-block: transparent;
+$background-block__title: #fafafa;
+$background-block__actions: #fafafa;
+$border-block: 1px solid #e8e8e8;
+
+// Pop-ups
+$background-popup: #ffffff;
+$foreground-popup: #393546;
+$border-popup: 1px solid #e0e0e0;
+
 // Buttons
 $background-button: transparent;
 $foreground-button: #502ebf;
-$border-button: 1px solid #502ebf;
+$border-button: 1px solid #d1c6f5;
 $background-button--hover: transparent;
 $foreground-button--hover: rgba(#502ebf, 0.8);
-$border-button--hover: 1px solid rgba(#502ebf, 0.8);
+$border-button--hover: 1px solid rgba(#d1c6f5, 0.8);
 
 $background-button--cta: #502ebf;
 $foreground-button--cta: #fafafa;
@@ -76,7 +87,7 @@ $foreground-label: #a0a0a0;
 $foreground-placeholder: #a0a0a0;
 
 // Items
-$background-item: #f0f0f0;
+$background-item: #ffffff;
 $foreground-item: #808080;
 $border-item--link: 1px solid #d1c6f5;
 $border-item--link--no-highlight: 1px solid transparent;
@@ -88,3 +99,6 @@ $foreground-item__icon: #b0b0b0;
 $foreground-item--highlight__icon: #b19eee;
 $foreground-item--highlight__name: #502ebf;
 $foreground-item--highlight__suffix: #502ebf;
+
+// Entity views
+$foreground-entity-icon: #b19eee;

@@ -1,5 +1,8 @@
 <template>
     <div id="app">
+        <!-- Progress bar -->
+        <vue-progress-bar></vue-progress-bar>
+
         <!-- Main structure -->
         <navbar v-show="$auth.ready()">
         </navbar>
@@ -9,6 +12,21 @@
         <footer>
             Made by Adrian Hernik and Marcin Krykowski
         </footer>
+
+        <!-- Pop-up messages -->
+        <div class="popup-list">
+            <transition-group name="pop-up" appear>
+                <popup
+                    v-for="(message, key) in messages"
+                    :key="key"
+                    :type="message.type"
+                    :forced="message.forced"
+                    @close="$bus.removeMessage(key)"
+                >
+                    {{ message.content }}
+                </popup>
+            </transition-group>
+        </div>
 
         <!-- Login modal -->
         <modal
@@ -142,10 +160,13 @@
 </template>
 
 <script>
+import axios from '@/axios'
+
 import Navbar from '@/components/Navbar.vue'
 import Modal from '@/components/Modal.vue'
 import ActionButton from '@/components/ActionButton.vue'
 import ActionInput from '@/components/ActionInput.vue'
+import Popup from '@/components/Popup.vue'
 
 import {required, email, minLength} from 'vuelidate/lib/validators'
 
@@ -155,12 +176,23 @@ export default {
        Navbar,
        Modal,
        ActionButton,
-       ActionInput
+       ActionInput,
+       Popup
     },
     created () {
         // Check for premature $auth ready state
         if (this.$auth.ready())
             this.$bus.loading = false
+
+        // Set up axios interceptors
+        axios.interceptors.request.use(config => {
+            this.$Progress.start()
+            return config
+        })
+        axios.interceptors.response.use(response => {
+            this.$Progress.finish()
+            return response
+        })
     },
     methods: {
         submitLogin (event) {
@@ -204,6 +236,9 @@ export default {
         },
         authReady () {
             return this.$auth.ready()
+        },
+        messages () {
+            return this.$bus.messages
         }
     },
     validations: {
@@ -270,6 +305,11 @@ body {
     padding-bottom: 64px;
 }
 
+section {
+    margin: 64px auto;
+    padding: 8px 24px;
+}
+
 footer {
     position: absolute;
     bottom: 0;
@@ -328,17 +368,32 @@ a:hover {
 h1 {
     color: $foreground-header;
     font: $font-header;
+    margin: 8px 0;
 }
 
 h2 {
     color: $foreground-header--sub;
     font: $font-header--sub;
+    margin: 8px 0;
 }
 
 .highlight {
     background-color: $background-highlight;
     margin: 24px 0;
     padding: 24px 32px;
+}
+
+// Pop-ups
+.popup-list {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+// Lists
+ul {
+    padding: 0;
 }
 
 // Animations
@@ -372,6 +427,22 @@ h2 {
 .slide-fast-leave-to {
     opacity: 0;
     transform: translate3d(0, 10px, 0);
+}
+
+/* Vertical slide */
+.pop-up-enter-active {
+    transition: 400ms opacity ease-in-out, 400ms transform ease-out;
+}
+.pop-up-leave-active {
+    transition: 400ms opacity ease-in-out, 400ms transform ease-in;
+}
+.pop-up-enter {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0);
+}
+.pop-up-leave-to {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0);
 }
 
 /* Standard fade */

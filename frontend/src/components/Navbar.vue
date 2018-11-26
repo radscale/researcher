@@ -5,50 +5,60 @@
         'navbar--free': free
     }"
 >
-    <div
-        class="logo"
-        :class="{
-            'logo--hidden': hiddenLogo
-        }"
-        @click="$router.push({path: '/'})"
-    >
-    </div>
-    <div v-if="!$auth.check()">
-        <action-button
-            class="navbar-button"
-            @click="$bus.openModal('login')"
-        >
-            Log in
-        </action-button>
-        <action-button
-            class="navbar-button"
-            cta
-            @click="$bus.openModal('signup')"
-        >
-            Sign up
-        </action-button>
-    </div>
-    <div v-if="user.email">
-        <action-item
-            no-background
-            :highlight="!isOnOwnProfile"
-            type="user"
-            :item="user"
-            :to="{
-                name: 'profile',
-                params: {
-                    id: user.id
-                }
+    <div class="navbar__left">
+        <div
+            v-if="$auth.check()"
+            class="logo"
+            :class="{
+                'logo--hidden': hiddenLogo
             }"
-        ></action-item>
+            @click="$router.push({path: '/'})"
+        ></div>
         <action-button
-            class="navbar-button"
-            icon
-            faded
-            @click="$bus.openModal('logout')"
+            v-if="$auth.check() && $route.name != 'home'"
+            @click="$router.push({path: '/'})"
         >
-            <i class="fas fa-power-off"></i>
+            Dashboard
         </action-button>
+    </div>
+    <div class="navbar__right">
+        <template v-if="!$auth.check()">
+            <action-button
+                class="navbar-button"
+                @click="$bus.openModal('login')"
+            >
+                Log in
+            </action-button>
+            <action-button
+                class="navbar-button"
+                cta
+                @click="$bus.openModal('signup')"
+            >
+                Sign up
+            </action-button>
+        </template>
+        <template v-if="user.email">
+            <action-item
+                no-background
+                :highlight="!isOnOwnProfile"
+                type="user"
+                :item="user"
+                :to="{
+                    name: 'profile',
+                    params: {
+                        id: user.id
+                    }
+                }"
+            ></action-item>
+            <action-button
+                class="navbar-button"
+                icon
+                faded
+                @click="$bus.openModal('logout')"
+            >
+                <i class="fas fa-power-off"></i>
+            </action-button>
+        </template>
     </div>
 </div>
 </template>
@@ -103,6 +113,12 @@ export default {
         &--free {
             position: absolute;
         }
+
+        &__left {
+            margin-right: auto;
+            display: flex;
+            align-items: center;
+        }
     }
 
     .navbar-button {
@@ -118,8 +134,7 @@ export default {
         height: 48px;
         transition: opacity 250ms ease-out;
         cursor: pointer;
-
-        margin-right: auto; // flex spacer
+        margin-right: 14px;
 
         &--hidden {
             opacity: 0;
