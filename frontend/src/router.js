@@ -5,7 +5,7 @@ import Router from 'vue-router'
 import Home from '@/views/Home.vue'
 import Profile from '@/views/Profile.vue'
 import Project from '@/views/Project.vue'
-import About from '@/views/About.vue'
+import Task from '@/views/Task.vue'
 
 Vue.use(Router)
 
@@ -43,9 +43,14 @@ export default new Router({
             component: Project
         },
         {
-            path: '/about',
-            name: 'about',
-            component: About
+            path: '/task/:id',
+            name: 'task',
+            props (route) {
+                return {
+                    id: +route.params.id
+                }
+            },
+            component: Task
         }
 
         // {

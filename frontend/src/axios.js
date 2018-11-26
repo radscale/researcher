@@ -4,7 +4,8 @@ import axios from 'axios'
 import VueProgressBar from 'vue-progressbar'
 
 Vue.use(VueProgressBar, {
-    color: '#bffaf3',
+    //color: '#bffaf3',
+    color: '#c5deff',
     failedColor: '#874b4b',
     thickness: '5px',
     transition: {

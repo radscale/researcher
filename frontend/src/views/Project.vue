@@ -1,5 +1,5 @@
 <template>
-    <div class="project">
+    <section class="project">
         <div class="project__header">
             <i
                 class="fas fa-project-diagram"
@@ -20,10 +20,16 @@
                     v-for="task in tasks"
                     :item="task"
                     :key="task.id"
+                    :to="{
+                        name: 'task',
+                        params: {
+                            id: task.id
+                        }
+                    }"
                 ></action-item>
             </ul>
         </div>
-    </div>
+    </section>
 </template>
 
 <script>
@@ -61,9 +67,6 @@ export default {
 @import '~@/styles/globals';
 
 .project {
-    margin: 50px auto;
-    padding: 8px 24px;
-
     &__header {
         display: flex;
         flex-direction: row;

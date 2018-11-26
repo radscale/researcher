@@ -305,6 +305,11 @@ body {
     padding-bottom: 64px;
 }
 
+section {
+    margin: 64px auto;
+    padding: 8px 24px;
+}
+
 footer {
     position: absolute;
     bottom: 0;
@@ -363,11 +368,13 @@ a:hover {
 h1 {
     color: $foreground-header;
     font: $font-header;
+    margin: 8px 0;
 }
 
 h2 {
     color: $foreground-header--sub;
     font: $font-header--sub;
+    margin: 8px 0;
 }
 
 .highlight {

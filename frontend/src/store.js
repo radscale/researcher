@@ -15,10 +15,13 @@ export default new Vuex.Store({
             item: false
             // Add other context based data here
         },
-        currentProject: {  // Currentl viewed project
+        currentProject: {  // Currently viewed project
             item: false,
             tasks: []
             // Add other context based data here
+        },
+        currentTask: {  // Currently viewed task
+            item: false
         }
     },
     mutations: {
@@ -30,6 +33,9 @@ export default new Vuex.Store({
         },
         setProject (state, project) {
             state.currentProject.item = project
+        },
+        setTask (state, task) {
+            state.currentTask.item = task
         },
         setTasksForProject (state, tasks) {
             state.currentProject.tasks = tasks
@@ -68,8 +74,18 @@ export default new Vuex.Store({
                     reject(err)
                 })
                 // Do the supplemental data outside of the resolve flow
-                Vue.axios.get('tasks/?projectId=' + payload.id).then((res) => {
+                Vue.axios.get('projects/' + payload.id + '/tasks').then((res) => {
                     context.commit('setTasksForProject', res.data)
+                })
+            })
+        },
+        getTask(context, payload = {}) {
+            return new Promise((resolve, reject) => {
+                Vue.axios.get('tasks/' + payload.id + '?_expand=project').then(res => {
+                    context.commit('setTask', res.data)
+                    resolve(res)
+                }, err => {
+                    reject(err)
                 })
             })
         },

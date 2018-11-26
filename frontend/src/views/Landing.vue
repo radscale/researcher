@@ -1,5 +1,5 @@
 <template>
-    <div class="landing">
+    <section class="landing">
         <img class="logo" alt="Researcher logo" src="../assets/logo-transparent-512px.png">
         <h1>Researcher</h1>
         <p>Research group management suite</p>
@@ -17,7 +17,7 @@
                 Sign up
             </action-button>
         </div>
-    </div>
+    </section>
 </template>
 
 <script>
@@ -35,7 +35,7 @@ export default {
 @import '~@/styles/globals';
 
 .landing {
-    margin: 50px auto;
+    margin: calc(50px + 5vh) auto;
     text-align: center;
 }
 

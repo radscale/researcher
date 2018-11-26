@@ -1,5 +1,5 @@
 <template>
-    <div class="profile">
+    <section class="profile">
         <h1>{{item.firstName}} {{item.lastName}}</h1>
         <h2 v-if="isMe">It's you!</h2>
         <!-- <h2>Project list</h2>
@@ -12,7 +12,7 @@
                 :key="project.id"
             ></action-item>
         </ul> -->
-    </div>
+    </section>
 </template>
 
 <script>
@@ -53,7 +53,6 @@ export default {
 @import '~@/styles/globals';
 
 .profile {
-    margin: 50px auto;
-    padding: 8px 24px;
+    
 }
 </style>

@@ -86,6 +86,9 @@ export default {
             } else if (this.type == 'project') {
                 icon += 'fa-project-diagram'
                 name = this.item.name
+            } else if (this.type == 'task' || this.type == 'adhoc') {
+                icon += 'fa-scroll'
+                name = this.item.name
             }
 
             if (['project', 'task', 'ad-hoc'].includes(this.type)) {

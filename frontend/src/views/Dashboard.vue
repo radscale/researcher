@@ -1,5 +1,5 @@
 <template>
-    <div class="dashboard">
+    <section class="dashboard">
         <h1>Welcome, {{$auth.user().firstName}}.</h1>
         <h2>Project list</h2>
         <ul class="list">
@@ -17,7 +17,7 @@
                 }"
             ></action-item>
         </ul>
-    </div>
+    </section>
 </template>
 
 <script>
@@ -45,7 +45,6 @@ export default {
 @import '~@/styles/globals';
 
 .dashboard {
-    margin: 50px auto;
-    padding: 8px 24px;
+    
 }
 </style>
