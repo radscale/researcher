@@ -10,8 +10,7 @@ public class User {
 
     public User(){}
 
-    public User(Long id, @NotBlank String title, @NotBlank String name, @NotBlank String lastName, @NotBlank String email, @NotBlank String password) {
-        this.id = id;
+    public User(@NotBlank String title, @NotBlank String name, @NotBlank String lastName, @NotBlank String email, @NotBlank String password) {
         this.title = title;
         this.name = name;
         this.lastName = lastName;
@@ -91,7 +90,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
 
     @Override
     public boolean equals(Object o) {
