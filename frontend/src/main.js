@@ -11,6 +11,16 @@ Vue.use(VueMq, {
     }
 });
 
+// Event bus
+import bus from './bus.js'
+Object.defineProperties(Vue.prototype, {
+    $bus: {
+        get: function() {
+            return bus;
+        }
+    }
+});
+
 // Router
 import router from './router'
 Vue.router = router
@@ -55,16 +65,6 @@ Vue.use(require('@websanova/vue-auth'), {
 // Validation
 import Vuelidate from 'vuelidate'
 Vue.use(Vuelidate)
-
-// Event bus
-import bus from './bus.js'
-Object.defineProperties(Vue.prototype, {
-    $bus: {
-        get: function() {
-            return bus;
-        }
-    }
-});
 
 // Filters
 Vue.filter('capitalize', function (value) {

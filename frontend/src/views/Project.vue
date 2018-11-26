@@ -50,7 +50,7 @@ export default {
         }
     },
     mounted () {
-        this.$store.dispatch('getProject', {id: this.id})
+        // this.$store.dispatch('getProject', {id: this.id})
     },
     computed: {
         item () {

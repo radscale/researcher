@@ -46,7 +46,7 @@ export default {
         }
     },
     mounted () {
-        this.$store.dispatch('getTask', {id: this.id})
+        // this.$store.dispatch('getTask', {id: this.id})
     },
     computed: {
         item () {

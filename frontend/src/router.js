@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import store from './store'
+import bus from './bus.js'
 import Router from 'vue-router'
 
 import Home from '@/views/Home.vue'
@@ -15,6 +16,14 @@ export default new Router({
             path: '/',
             name: 'home',
             component: Home,
+            beforeEnter: function (to, from, next) {
+                store.dispatch('updateProjects', {id: to.params.id}).then(next, error => {
+                    bus.pushMessage({
+                        type: 'error',
+                        content: 'Could not load data.'
+                    })
+                })
+            }
         },
         {
             path: '/profile/:id',
@@ -26,9 +35,11 @@ export default new Router({
             },
             component: Profile,
             beforeEnter: function (to, from, next) {
-                
                 store.dispatch('getUser', {id: to.params.id}).then(next, error => {
-
+                    bus.pushMessage({
+                        type: 'error',
+                        content: 'Could not load profile data.'
+                    })
                 })
             }
         },
@@ -40,7 +51,15 @@ export default new Router({
                     id: +route.params.id
                 }
             },
-            component: Project
+            component: Project,
+            beforeEnter: function (to, from, next) {
+                store.dispatch('getProject', {id: to.params.id}).then(next, error => {
+                    bus.pushMessage({
+                        type: 'error',
+                        content: 'Could not load project data.'
+                    })
+                })
+            }
         },
         {
             path: '/task/:id',
@@ -50,7 +69,15 @@ export default new Router({
                     id: +route.params.id
                 }
             },
-            component: Task
+            component: Task,
+            beforeEnter: function (to, from, next) {
+                store.dispatch('getTask', {id: to.params.id}).then(next, error => {
+                    bus.pushMessage({
+                        type: 'error',
+                        content: 'Could not load task data.'
+                    })
+                })
+            }
         }
 
         // {

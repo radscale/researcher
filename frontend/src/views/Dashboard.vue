@@ -31,7 +31,7 @@ export default {
         ActionButton
     },
     mounted () {
-        this.$store.dispatch('updateProjects')
+        // this.$store.dispatch('updateProjects')
     },
     computed: {
         projects () {
