@@ -5,9 +5,7 @@
         'navbar--free': free
     }"
 >
-    <div
-        class="navbar__left"
-    >
+    <div class="navbar__left">
         <div
             v-if="$auth.check()"
             class="logo"
@@ -17,8 +15,7 @@
             @click="$router.push({path: '/'})"
         ></div>
         <action-button
-            v-if="$auth.check()"
-            :faded="$route.name == 'home'"
+            v-if="$auth.check() && $route.name != 'home'"
             @click="$router.push({path: '/'})"
         >
             Dashboard

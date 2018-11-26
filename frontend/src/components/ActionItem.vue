@@ -170,6 +170,7 @@ export default {
 
         &--list {
             width: 100%;
+            margin: 8px 0;
             text-align: left;
             display: flex;
         }

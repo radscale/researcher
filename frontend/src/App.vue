@@ -393,7 +393,7 @@ h2 {
 
 // Lists
 ul {
-    padding: 0 8px;
+    padding: 0;
 }
 
 // Animations

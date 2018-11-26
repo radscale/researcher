@@ -8,26 +8,34 @@
             <h1>{{item.name}}</h1>
         </div>
         <div class="project__description">
-            <h2>Description</h2>
-            <p>{{item.description}}</p>
+            <section-block>
+                <template slot="title">
+                    <h2>Description</h2>
+                </template>
+                <p>{{item.description}}</p>
+            </section-block>
         </div>
         <div class="project__tasks">
-            <h2>Task list</h2>
-            <ul class="list">
-                <action-item
-                    type='task'
-                    list
-                    v-for="task in tasks"
-                    :item="task"
-                    :key="task.id"
-                    :to="{
-                        name: 'task',
-                        params: {
-                            id: task.id
-                        }
-                    }"
-                ></action-item>
-            </ul>
+            <section-block>
+                <template slot="title">
+                    <h2>Task list</h2>
+                </template>
+                <ul class="list">
+                    <action-item
+                        type='task'
+                        list
+                        v-for="task in tasks"
+                        :item="task"
+                        :key="task.id"
+                        :to="{
+                            name: 'task',
+                            params: {
+                                id: task.id
+                            }
+                        }"
+                    ></action-item>
+                </ul>
+            </section-block>
         </div>
     </section>
 </template>
@@ -35,13 +43,15 @@
 <script>
 import ActionItem from '@/components/ActionItem.vue'
 import ActionButton from '@/components/ActionButton.vue'
+import SectionBlock from '@/components/SectionBlock.vue'
 import _ from 'lodash'
 
 export default {
     name: 'project',
     components: {
         ActionItem,
-        ActionButton
+        ActionButton,
+        SectionBlock
     },
     props: {
         id: {
