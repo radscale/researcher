@@ -4,7 +4,10 @@
         <vue-progress-bar></vue-progress-bar>
 
         <!-- Main structure -->
-        <navbar v-show="$auth.ready()">
+        <navbar
+            v-show="$auth.ready()"
+            :scrolled="$bus.scrollHeight > 8"
+        >
         </navbar>
         <transition name="slide-fast" mode="out-in" appear>
             <router-view v-if="$auth.ready()" :key="$route.fullPath" />
@@ -193,8 +196,16 @@ export default {
             this.$Progress.finish()
             return response
         })
+
+        window.addEventListener('scroll', this._scrollHandler);
+    },
+    beforeDestroy () {
+        window.removeEventListener('scroll', this._scrollHandler)
     },
     methods: {
+        _scrollHandler (event) {
+            this.$bus.scrollHeight = window.scrollY
+        },
         submitLogin (event) {
             event.preventDefault();
             if (!this.$v.login.$invalid) {
@@ -236,6 +247,9 @@ export default {
         },
         authReady () {
             return this.$auth.ready()
+        },
+        authCheck () {
+            return this.$auth.check()
         },
         messages () {
             return this.$bus.messages
@@ -302,12 +316,37 @@ body {
     margin: 0;
     padding: 0;
 
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    min-height: 100%;
+
+
     padding-bottom: 64px;
 }
 
 section {
     margin: 64px auto;
     padding: 8px 24px;
+}
+
+.section {
+    display: flex;
+    flex-wrap: wrap;
+
+    &__header {
+        width: 100%;
+    }
+
+    &__main {
+        flex-grow: 1;
+    }
+
+    &__side {
+        width: 360px;
+        margin-left: 32px;
+    }
 }
 
 footer {

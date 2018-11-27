@@ -54,7 +54,8 @@ export default new Vue({
             messages: {},
             _messageCount: 0,
             loading: true,
-            loadingLabel: 'Loading...'
+            loadingLabel: 'Loading...',
+            scrollHeight: 0
         }
     }
 });

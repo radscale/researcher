@@ -1,12 +1,16 @@
 <template>
     <div
         class="action-item"
-        :class="{
-            'action-item--list': list,
-            'action-item--no-background': noBackground,
-            'action-item--highlight': highlight,
-            'action-item--link': to
-        }"
+        :class="[
+            'action-item--' + type,
+            {
+                'action-item--list': list,
+                'action-item--no-background': noBackground,
+                'action-item--highlight': highlight,
+                'action-item--link': to,
+                'action-item--alert': alert
+            }
+        ]"
         @click="onClick($event)"
     >
         <span class="action-item__icon">
@@ -27,6 +31,12 @@
         >
             {{display.status | capitalize}}
         </span>
+        <transition name="fade-fast">
+            <div 
+                v-if="typeof alert == 'number'"
+                class="action-item__alert"
+            >{{alert}}</div>
+        </transition>
     </div>
 </template>
 
@@ -57,11 +67,15 @@ export default {
         },
         highlight: {
             type: Boolean,
-            default: true
+            default: false
         },
         to: {
             type: Object,
             required: false
+        },
+        alert: {
+            type: Number,
+            default: null
         }
     },
     methods: {
@@ -74,33 +88,30 @@ export default {
     },
     computed: {
         display () {
-            let icon = 'fas ';
-            let name = '';
-            let suffix = '';
-            let status = '';
+            let display = {
+                icon: 'fas '
+            }
 
             if (this.type == 'user') {
-                icon += 'fa-user'
-                name = this.item.firstName + ' ' + this.item.lastName
-                suffix = parseSuffix(this.item)
+                display.icon += 'fa-user'
+                display.name = this.item.firstName + ' ' + this.item.lastName
+                display.suffix = parseSuffix(this.item)
             } else if (this.type == 'project') {
-                icon += 'fa-project-diagram'
-                name = this.item.name
+                display.icon += 'fa-project-diagram'
+                display.name = this.item.name
             } else if (this.type == 'task' || this.type == 'adhoc') {
-                icon += 'fa-scroll'
-                name = this.item.name
+                display.icon += 'fa-scroll'
+                display.name = this.item.name
+            } else if (this.type == 'group') {
+                display.icon += 'fa-users'
+                display.name = this.item.name
             }
 
             if (['project', 'task', 'ad-hoc'].includes(this.type)) {
-                status = STATES[this.item.status]
+                display.status = STATES[this.item.status]
             }
 
-            return {
-                icon,
-                name,
-                suffix,
-                status
-            }
+            return display
         }
     }
 }
@@ -111,6 +122,7 @@ export default {
 
     .action-item {
         display: inline-block;
+        position: relative;
         font-family: $font-global;
         outline: none;
         margin: 8px 4px;
@@ -121,6 +133,7 @@ export default {
         border-radius: 8px;
         background-color: $background-item;
         cursor: default;
+
         transition:
             background-color 150ms ease-out,
             color 150ms ease-out,
@@ -189,6 +202,22 @@ export default {
         &__status {
             width: 30%;
             color: $foreground-item__status;
+        }
+
+        &__alert {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            padding: 0 4px;
+            background-color: $background-alert;
+            color: $foreground-alert;
+            min-width: 16px;
+            height: 16px;
+            line-height: 16px;
+            text-align: center;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
         }
 
         &:hover {

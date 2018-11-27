@@ -33,10 +33,22 @@
 </template>
 
 <script>
+import _ from 'lodash'
+import store from '@/store'
+import bus from '@/bus.js'
+
 import ActionItem from '@/components/ActionItem.vue'
 import ActionButton from '@/components/ActionButton.vue'
 import SectionBlock from '@/components/SectionBlock.vue'
-import _ from 'lodash'
+
+const _fetchData = function (params, callback) {
+    store.dispatch('getTask', {id: params.id}).then(callback, error => {
+        bus.pushMessage({
+            type: 'error',
+            content: 'Could not load task data.'
+        })
+    })
+}
 
 export default {
     name: 'task',
@@ -53,6 +65,12 @@ export default {
     },
     mounted () {
         // this.$store.dispatch('getTask', {id: this.id})
+    },
+    beforeRouteEnter: function (to, from, next) {
+        _fetchData(to.params, next)
+    },
+    beforeRouteUpdate: function (to, from, next) {
+        _fetchData(to.params, next)
     },
     computed: {
         item () {

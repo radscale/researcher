@@ -8,6 +8,10 @@ $foreground-body: #393546;
 
 $foreground-footer: #c0c0c0;
 
+$background-navbar: #fafafa;
+$shadow-navbar: 0 0 12px 0 rgba(black, 0);
+$shadow-navbar--scrolled:  0 0 12px 0 rgba(black, 0.15);
+
 $foreground-link: #3a218a;
 $foreground-link--hover: #522bcd;
 
@@ -88,9 +92,9 @@ $foreground-placeholder: #a0a0a0;
 
 // Items
 $background-item: #ffffff;
-$foreground-item: #808080;
+$foreground-item: #909090;
 $border-item--link: 1px solid #d1c6f5;
-$border-item--link--no-highlight: 1px solid transparent;
+$border-item--link--no-highlight: 1px solid #e0e0e0;
 
 $foreground-item__status: #b0b0b0;
 $foreground-item__suffix: #b0b0b0;
@@ -99,6 +103,10 @@ $foreground-item__icon: #b0b0b0;
 $foreground-item--highlight__icon: #b19eee;
 $foreground-item--highlight__name: #502ebf;
 $foreground-item--highlight__suffix: #502ebf;
+
+// Alerts
+$background-alert: #502ebf;
+$foreground-alert: #ffffff;
 
 // Entity views
 $foreground-entity-icon: #b19eee;

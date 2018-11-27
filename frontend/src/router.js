@@ -10,20 +10,28 @@ import Task from '@/views/Task.vue'
 
 Vue.use(Router)
 
+const storeFunction = function(storeAction, errorMessage, callback) {
+    return function (to, from, next) {
+        store.dispatch(storeAction, {id: to.params.id}).then(res => {
+            if (typeof callback == 'function') {
+                callback()
+            }
+            next()
+        }, error => {
+            bus.pushMessage({
+                type: 'error',
+                content: errorMessage
+            })
+        })
+    }
+}
+
 export default new Router({
     routes: [
         {
             path: '/',
             name: 'home',
-            component: Home,
-            beforeEnter: function (to, from, next) {
-                store.dispatch('updateProjects', {id: to.params.id}).then(next, error => {
-                    bus.pushMessage({
-                        type: 'error',
-                        content: 'Could not load data.'
-                    })
-                })
-            }
+            component: Home
         },
         {
             path: '/profile/:id',
@@ -33,15 +41,7 @@ export default new Router({
                     id: +route.params.id
                 }
             },
-            component: Profile,
-            beforeEnter: function (to, from, next) {
-                store.dispatch('getUser', {id: to.params.id}).then(next, error => {
-                    bus.pushMessage({
-                        type: 'error',
-                        content: 'Could not load profile data.'
-                    })
-                })
-            }
+            component: Profile
         },
         {
             path: '/project/:id',
@@ -51,15 +51,7 @@ export default new Router({
                     id: +route.params.id
                 }
             },
-            component: Project,
-            beforeEnter: function (to, from, next) {
-                store.dispatch('getProject', {id: to.params.id}).then(next, error => {
-                    bus.pushMessage({
-                        type: 'error',
-                        content: 'Could not load project data.'
-                    })
-                })
-            }
+            component: Project
         },
         {
             path: '/task/:id',
@@ -69,24 +61,7 @@ export default new Router({
                     id: +route.params.id
                 }
             },
-            component: Task,
-            beforeEnter: function (to, from, next) {
-                store.dispatch('getTask', {id: to.params.id}).then(next, error => {
-                    bus.pushMessage({
-                        type: 'error',
-                        content: 'Could not load task data.'
-                    })
-                })
-            }
+            component: Task
         }
-
-        // {
-        //     path: '/about',
-        //     name: 'about',
-        //     // route level code-splitting
-        //     // this generates a separate chunk (about.[hash].js) for this route
-        //     // which is lazy-loaded when the route is visited.
-        //     component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-        // }
     ]
 })

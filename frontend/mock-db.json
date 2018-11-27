@@ -4,13 +4,17 @@
             "id": 1,
             "name": "Test project",
             "description": "Pariatur sint culpa excepteur pariatur.",
-            "status": "in-progress"
+            "status": "in-progress",
+            "creatorId": 3,
+            "members": [3, 1]
         },
         {
             "id": 2,
             "name": "Another project",
             "description": "Ad velit deserunt excepteur eu aliqua nostrud veniam nostrud.",
-            "status": "created"
+            "status": "created",
+            "creatorId": 2,
+            "members": [2]
         }
     ],
     "tasks": [
@@ -19,28 +23,32 @@
             "projectId": 1,
             "name": "Test task 1",
             "description": "Eiusmod minim velit veniam laboris anim sunt ex laborum veniam exercitation proident dolore consequat officia.",
-            "status": "created"
+            "status": "created",
+            "members": [1]
         },
         {
             "id": 2,
             "projectId": 1,
             "name": "Test task 2",
             "description": "Deserunt sunt labore aliquip sunt laborum Lorem esse cillum.",
-            "status": "in-progress"
+            "status": "in-progress",
+            "members": [3]
         },
         {
             "id": 3,
             "projectId": 2,
             "name": "Test task 3",
             "description": "Ex mollit elit et fugiat proident.",
-            "status": "created"
+            "status": "created",
+            "members": []
         },
         {
             "id": 4,
             "projectId": 1,
             "name": "Test task 4",
             "description": "Elit laborum nostrud ea eu ex eiusmod sunt aute occaecat minim nulla ea.",
-            "status": "created"
+            "status": "created",
+            "members": [2]
         }
 
     ],
@@ -79,6 +87,22 @@
             "prof": true
         }
     ],
+    "groups": [
+        {
+            "id": 1,
+            "name": "Grupa naukowa #1",
+            "description": "Exercitation minim reprehenderit consequat labore velit anim magna nisi ex velit minim cupidatat est.",
+            "creatorId": 3,
+            "members": [1, 2, 3]
+        },
+        {
+            "id": 2,
+            "name": "Grupa alternatywna",
+            "description": "Loool",
+            "creatorId": 2,
+            "members": [2]
+        }
+    ],
     "messages": [
         {
             "id": 5,
@@ -86,7 +110,7 @@
             "receiverId": 3,
             "date": 1543044264,
             "content": "Hej, co tam?",
-            "read": false 
+            "read": true 
         },
         {
             "id": 6,

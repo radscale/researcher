@@ -2,7 +2,8 @@
 <div
     class="navbar"
     :class="{
-        'navbar--free': free
+        'navbar--free': free,
+        'navbar--scrolled': scrolled
     }"
 >
     <div class="navbar__left">
@@ -81,6 +82,10 @@ export default {
         hiddenLogo: {
             type: Boolean,
             default: false
+        },
+        scrolled: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
@@ -109,9 +114,18 @@ export default {
         margin-bottom: 64px;
         align-items: center;
         line-height: 32px;
+        z-index: 20;
+        box-shadow: $shadow-navbar;
+        background-color: $background-navbar;
+
+        transition: box-shadow 200ms ease-out;
 
         &--free {
             position: absolute;
+        }
+
+        &--scrolled {
+            box-shadow: $shadow-navbar--scrolled;
         }
 
         &__left {
