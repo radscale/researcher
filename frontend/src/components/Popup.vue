@@ -2,9 +2,12 @@
 <div class="popup__wrapper">
     <div
         class="popup"
-        :class="{
-            'popup--forced': forced
-        }"
+        :class="[
+            'popup--' + type,    
+            {
+                'popup--forced': forced
+            }
+        ]"
     >
         <div class="popup__content">
             <slot></slot>
@@ -36,6 +39,10 @@ export default {
         forced: {
             type: Boolean,
             default: false
+        },
+        type: {
+            type: String,
+            default: 'info'
         }
     },
     methods: {
@@ -62,6 +69,16 @@ export default {
 
         display: flex;
         align-items: baseline;
+
+        &--error {
+            color: $foreground-popup--error;
+            background-color: $background-popup--error;
+            border: $border-popup--error;
+
+            .popup__close {
+                color: $foreground-popup--error;
+            }
+        }
 
         &__wrapper {
             margin: 0 auto;

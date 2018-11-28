@@ -96,6 +96,28 @@
                     </label>
                 </action-input>
                 <action-input
+                    type="text"
+                    name="signup-firstName"
+                    v-model.trim="signup.firstName"
+                    placeholder="Type your first name here..."
+                    :validations="$v.signup.firstName"
+                >
+                    <label slot="label" for="login">
+                        First name
+                    </label>
+                </action-input>
+                <action-input
+                    type="text"
+                    name="signup-lastName"
+                    v-model.trim="signup.lastName"
+                    placeholder="Type your last name here..."
+                    :validations="$v.signup.lastName"
+                >
+                    <label slot="label" for="login">
+                        Last name
+                    </label>
+                </action-input>
+                <action-input
                     type="password"
                     name="signup-password1"
                     v-model.trim="signup.password1"
@@ -195,6 +217,12 @@ export default {
         axios.interceptors.response.use(response => {
             this.$Progress.finish()
             return response
+        }, error => {
+            this.$bus.pushMessage({
+                type: 'error',
+                content: 'Network error. Is the server up?'
+            })
+            return Promise.reject(error)
         })
 
         window.addEventListener('scroll', this._scrollHandler);
@@ -212,6 +240,16 @@ export default {
                 this.$auth.login({
                     email: this.login.email,
                     password: this.login.password
+                }).then(res => {
+                    console.log('Login success: %o', res)
+                }, error => {
+                    console.warn('Login error: %o', error)
+                    if (error.status) {
+                        this.$bus.pushMessage({
+                            type: 'error',
+                            content: 'Invalid login. Please verify your data.'
+                        })
+                    }
                 })
             } else {
                 this.$v.login.email.$touch()
@@ -221,9 +259,20 @@ export default {
         submitSignup (event) {
             event.preventDefault();
             if (!this.$v.signup.$invalid) {
-                this.$auth.register(this.signup.email, this.signup.password)
+                this.$auth.register({
+                    firstName: this.signup.firstName,
+                    lastName: this.signup.lastName,
+                    email: this.signup.email,
+                    password: this.signup.password
+                }).then(res => {
+                    console.log('Register success: %o', res)
+                }, error => {
+                    console.warn('Register error: %o', error)
+                })
             } else {
                 this.$v.signup.email.$touch()
+                this.$v.signup.firstName.$touch()
+                this.$v.signup.lastName.$touch()
                 this.$v.signup.password1.$touch()
                 this.$v.signup.password2.$touch()
             }
@@ -270,6 +319,12 @@ export default {
                 required,
                 email
             },
+            firstName: {
+                required
+            },
+            lastName: {
+                required
+            },
             password1: {
                 required,
                 minLengthPassword: minLength(6)
@@ -290,6 +345,8 @@ export default {
             },
             signup: {
                 email: '',
+                firstName: '',
+                lastName: '',
                 password1: '',
                 password2: ''
             }
@@ -428,6 +485,7 @@ h2 {
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 80;
 }
 
 // Lists
@@ -470,10 +528,10 @@ ul {
 
 /* Vertical slide */
 .pop-up-enter-active {
-    transition: 400ms opacity ease-in-out, 400ms transform ease-out;
+    transition: 200ms opacity ease-in-out, 200ms transform ease-out;
 }
 .pop-up-leave-active {
-    transition: 400ms opacity ease-in-out, 400ms transform ease-in;
+    transition: 200ms opacity ease-in-out, 200ms transform ease-in;
 }
 .pop-up-enter {
     opacity: 0;

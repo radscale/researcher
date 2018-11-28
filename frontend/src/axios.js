@@ -19,7 +19,7 @@ Vue.use(VueProgressBar, {
 })
 
 const instance = axios.create({
-    baseURL: 'http://' + document.location.hostname + ':3000'
+    baseURL: 'http://' + document.location.hostname + ':8080'
 })
 
 export default instance

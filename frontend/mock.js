@@ -45,6 +45,6 @@ server.get('/auth/refresh', (req, res) => {
 })
 
 server.use(router)
-server.listen(3000, () => {
+server.listen(8080, () => {
     console.log('Researcher mock data server is running.')
 })

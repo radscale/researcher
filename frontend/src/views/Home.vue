@@ -11,12 +11,18 @@ import Landing from '@/views/Landing.vue'
 import Dashboard from '@/views/Dashboard.vue'
 
 const _fetchData = function (params, callback) {
-    store.dispatch('updateDashboard').then(callback, error => {
-        bus.pushMessage({
-            type: 'error',
-            content: 'Could not load dashboard data.'
+    if (bus.$auth.check()) {
+        store.dispatch('updateDashboard').then(callback, error => {
+            bus.pushMessage({
+                type: 'error',
+                content: 'Could not load dashboard data.'
+            })
         })
-    })
+    } else {
+        if (typeof callback == 'function') {
+            callback()
+        }
+    }
 }
 
 export default {
