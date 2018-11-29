@@ -390,19 +390,23 @@ section {
 
 .section {
     display: flex;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
+    justify-content: space-between;
 
     &__header {
         width: 100%;
+        flex-basis: 100%;
     }
 
     &__main {
+        flex-basis: 0;
         flex-grow: 1;
     }
 
     &__side {
-        width: 360px;
-        margin-left: 32px;
+        margin-left: 16px;
+        flex-basis: 360px;
+        min-width: 360px;
     }
 }
 

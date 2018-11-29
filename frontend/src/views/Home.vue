@@ -36,6 +36,11 @@ export default {
             return this.$auth.check()
         }
     },
+    watch: {
+        loggedIn () {
+            _fetchData(this.$route.params)
+        }
+    },
     beforeRouteEnter: function (to, from, next) {
         _fetchData(to.params, next)
     },

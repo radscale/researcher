@@ -9,9 +9,9 @@
         <div class="section__main">
             <section-block>
                 <template slot="title">
-                    <h2>About...</h2>
+                    <h2>About</h2>
                 </template>
-                <p>About this user</p>
+                <p>{{item.about}}</p>
             </section-block>
             <section-block v-if="!isMe">
                 <template slot="title">
