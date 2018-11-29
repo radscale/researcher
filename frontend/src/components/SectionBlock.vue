@@ -1,5 +1,10 @@
 <template>
-    <div class="section-block">
+    <div
+        class="section-block"
+        :class="{
+            'section-block--highlight': highlight
+        }"
+    >
         <div class="section-block__title">
             <slot name="title"></slot>
         </div>
@@ -14,7 +19,13 @@
 
 <script>
 export default {
-    name: 'section-block'
+    name: 'section-block',
+    props: {
+        highlight: {
+            type: Boolean,
+            default: false
+        }
+    }
 }
 </script>
 
@@ -46,6 +57,13 @@ export default {
             border: $border-block;
             padding: 8px 16px;
             background-color: $background-block;
+        }
+
+        &--highlight {
+            .section-block__content {
+                background-color: $background-block--highlight;
+                border: $border-block--highlight;
+            }
         }
     }
 </style>

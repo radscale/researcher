@@ -36,6 +36,9 @@ $background-block__title: #fafafa;
 $background-block__actions: #fafafa;
 $border-block: 1px solid #e8e8e8;
 
+$background-block--highlight: #f6f3ff;
+$border-block--highlight: 1px solid #d1c5f7;
+
 // Pop-ups
 $background-popup: #ffffff;
 $foreground-popup: #393546;
@@ -93,6 +96,29 @@ $foreground-validation: #e04b4b;
 $foreground-label: #a0a0a0;
 
 $foreground-placeholder: #a0a0a0;
+
+// Dropdowns
+$background-dropdown: rgba(#ffffff, 0.75);
+$foreground-dropdown: #7758dc;
+$border-dropdown: 1px solid #d0d0d0;
+
+$background-dropdown--disabled: #f0f0f0;
+$foreground-dropdown--disabled: #d0d0d0;
+$border-dropdown--disabled: 1px solid #a0a0a0;
+
+$background-dropdown--focus: #ffffff;
+$foreground-dropdown--focus: rgba(#7758dc, 0.5);
+$border-dropdown--focus: 1px solid #502ebf;
+
+$background-dropdown__list: #ffffff;
+$border-dropdown__list: 1px solid #502ebf;
+
+$background-dropdown__option: #ffffff;
+$foreground-dropdown__option: #7758dc;
+$background-dropdown__option--selected: #f7f5ff;
+$foreground-dropdown__option--selected: #6342ce;
+$background-dropdown__option--hover: #f3f0ff;
+$foreground-dropdown__option--hover: #502ebf;
 
 // Items
 $background-item: #ffffff;

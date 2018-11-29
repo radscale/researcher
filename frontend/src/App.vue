@@ -231,7 +231,7 @@ export default {
         window.removeEventListener('scroll', this._scrollHandler)
     },
     methods: {
-        _scrollHandler (event) {
+        _scrollHandler () {
             this.$bus.scrollHeight = window.scrollY
         },
         submitLogin (event) {
@@ -396,6 +396,20 @@ section {
     &__header {
         width: 100%;
         flex-basis: 100%;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        &__icon {
+            font-size: 20px;
+            margin: 0 8px 0 8px;
+            color: $foreground-entity-icon;
+        }
+
+        h1 {
+            font-weight: 400;
+        }
     }
 
     &__main {
@@ -483,6 +497,27 @@ h2 {
     padding: 24px 32px;
 }
 
+// Rows and cols
+.row {
+    position: relative;
+    margin: 8px 0;
+
+    > * {
+        display: inline-block;
+    }
+}
+
+.col-40 {
+    width: 40%;
+}
+.col-50 {
+    width: 50%;
+}
+.col-60 {
+    width: 60%;
+}
+
+
 // Pop-ups
 .popup-list {
     position: fixed;
@@ -544,6 +579,21 @@ ul {
 .pop-up-leave-to {
     opacity: 0;
     transform: translate3d(0, 40px, 0);
+}
+
+.drop-down-enter-active {
+    transition: 200ms opacity ease-in-out, 200ms transform ease-out;
+}
+.drop-down-leave-active {
+    transition: 200ms opacity ease-in-out, 200ms transform ease-in;
+}
+.drop-down-enter {
+    opacity: 0;
+    transform: translate3d(0, -8px, 0);
+}
+.drop-down-leave-to {
+    opacity: 0;
+    transform: translate3d(0, -8px, 0);
 }
 
 /* Standard fade */

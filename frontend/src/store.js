@@ -20,7 +20,9 @@ export default new Vuex.Store({
         },
         currentProject: {  // Currently viewed project
             item: false,
-            tasks: []
+            tasks: [],
+            creator: null,
+            users: []
             // Add other context based data here
         },
         currentTask: {  // Currently viewed task
@@ -79,6 +81,7 @@ export default new Vuex.Store({
         }
     },
     actions: {
+        // Dashboard
         updateDashboard (context) {
             return new Promise((resolve, reject) => {
                 Vue.axios.get('projects').then(res => {
@@ -96,6 +99,7 @@ export default new Vuex.Store({
                 })
             })
         },
+        // User
         getUser (context, payload = {}) {
             return new Promise((resolve, reject) => {
                 Vue.axios.get('users/' + payload.id + '?_embed=projects').then(res => {
@@ -118,6 +122,7 @@ export default new Vuex.Store({
                 })
             })
         },
+        // Project
         getProject (context, payload = {}) {
             return new Promise((resolve, reject) => {
                 Vue.axios.get('projects/' + payload.id).then(res => {
@@ -132,6 +137,19 @@ export default new Vuex.Store({
                 })
             })
         },
+        setProjectStatus (context, payload = {}) {
+            return new Promise((resolve, reject) => {
+                Vue.axios.patch('projects/' + payload.id, {
+                    status: payload.status
+                }).then(res => {
+                    context.commit('setProject', res.data)
+                    resolve(res)
+                }, err => {
+                    reject(err)
+                })
+            })
+        },
+        // Task
         getTask(context, payload = {}) {
             return new Promise((resolve, reject) => {
                 Vue.axios.get('tasks/' + payload.id + '?_expand=project').then(res => {
@@ -142,6 +160,7 @@ export default new Vuex.Store({
                 })
             })
         },
+        // Messaging
         updateMessages (context) {
             return new Promise((resolve, reject) => {
                 Vue.axios.get('messages').then(res => {

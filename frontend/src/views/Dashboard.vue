@@ -1,7 +1,7 @@
 <template>
     <section class="dashboard section">
         <div class="section__header">
-            
+           <h1>Welcome, {{$auth.user().firstName}}.</h1>
         </div>
         <div class="section__main">
             <section-block>

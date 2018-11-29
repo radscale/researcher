@@ -4,8 +4,10 @@
         :class="[
             'action-item--' + type,
             {
+                'action-item--fill': fill,
                 'action-item--list': list,
                 'action-item--no-background': noBackground,
+                'action-item--no-margin': noMargin,
                 'action-item--highlight': highlight,
                 'action-item--link': to,
                 'action-item--alert': alert
@@ -57,7 +59,15 @@ export default {
                 return {}
             }
         },
+        fill: {
+            type: Boolean,
+            default: false
+        },
         list: {
+            type: Boolean,
+            default: false
+        },
+        noMargin: {
             type: Boolean,
             default: false
         },
@@ -125,13 +135,14 @@ export default {
         position: relative;
         font-family: $font-global;
         outline: none;
-        margin: 8px 4px;
+        margin: 6px 4px;
         padding: 8px;
         line-height: 16px;
         min-width: 32px;
         text-align: center;
         border-radius: 8px;
         background-color: $background-item;
+        align-items: baseline;
         cursor: default;
 
         transition:
@@ -181,6 +192,15 @@ export default {
             }
         }
 
+        &--fill {
+            width: 100%;
+            display: flex;
+        }
+
+        &--no-margin {
+            margin: 0;
+        }
+
         &--list {
             width: 100%;
             margin: 8px 0;
@@ -188,14 +208,25 @@ export default {
             display: flex;
         }
 
+        &--user {
+            .action-item__name {
+                margin-right: 0;
+            }
+        }
+
         &__name {
             margin-right: auto;
             color: $foreground-item;
             font-weight: 600;
+            text-overflow: ellipsis;
+            /* height: 24px; */
+            overflow: hidden;
+            white-space: nowrap;
         }
 
         &__suffix {
             font-size: 12px;
+            margin-left: 8px;
             color: $foreground-item__suffix;
         }
 

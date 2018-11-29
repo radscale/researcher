@@ -1,127 +1,165 @@
 {
-    "projects": [
-        {
-            "id": 1,
-            "name": "Test project",
-            "description": "Pariatur sint culpa excepteur pariatur.",
-            "status": "in-progress",
-            "creatorId": 3,
-            "members": [3, 1]
-        },
-        {
-            "id": 2,
-            "name": "Another project",
-            "description": "Ad velit deserunt excepteur eu aliqua nostrud veniam nostrud.",
-            "status": "created",
-            "creatorId": 2,
-            "members": [2]
-        }
-    ],
-    "tasks": [
-        {
-            "id": 1,
-            "projectId": 1,
-            "name": "Test task 1",
-            "description": "Eiusmod minim velit veniam laboris anim sunt ex laborum veniam exercitation proident dolore consequat officia.",
-            "status": "created",
-            "members": [1]
-        },
-        {
-            "id": 2,
-            "projectId": 1,
-            "name": "Test task 2",
-            "description": "Deserunt sunt labore aliquip sunt laborum Lorem esse cillum.",
-            "status": "in-progress",
-            "members": [3]
-        },
-        {
-            "id": 3,
-            "projectId": 2,
-            "name": "Test task 3",
-            "description": "Ex mollit elit et fugiat proident.",
-            "status": "created",
-            "members": []
-        },
-        {
-            "id": 4,
-            "projectId": 1,
-            "name": "Test task 4",
-            "description": "Elit laborum nostrud ea eu ex eiusmod sunt aute occaecat minim nulla ea.",
-            "status": "created",
-            "members": [2]
-        }
-
-    ],
-    "users": [
-        {
-            "id": 1,
-            "email": "test@researcher.com",
-            "firstName": "Test",
-            "lastName": "User",
-            "about": "Sint deserunt qui ex laboris irure deserunt nostrud aliquip.",
-            "eng": true,
-            "bsc": true,
-            "msc": false,
-            "phd": false,
-            "prof": false
-        },
-        {
-            "id": 2,
-            "email": "test2@researcher.com",
-            "firstName": "Jan",
-            "lastName": "Kowalski",
-            "about": "Irure ut aliqua commodo sint sit ipsum mollit minim.",
-            "eng": false,
-            "bsc": true,
-            "msc": true,
-            "phd": true,
-            "prof": false
-        },
-        {
-            "id": 3,
-            "email": "aa@researcher.com",
-            "firstName": "Maria",
-            "lastName": "Nowak",
-            "about": "Est mollit eiusmod veniam nostrud dolore qui.",
-            "eng": false,
-            "bsc": true,
-            "msc": true,
-            "phd": true,
-            "prof": true
-        }
-    ],
-    "groups": [
-        {
-            "id": 1,
-            "name": "Grupa naukowa #1",
-            "description": "Exercitation minim reprehenderit consequat labore velit anim magna nisi ex velit minim cupidatat est.",
-            "creatorId": 3,
-            "members": [1, 2, 3]
-        },
-        {
-            "id": 2,
-            "name": "Grupa alternatywna",
-            "description": "Loool",
-            "creatorId": 2,
-            "members": [2]
-        }
-    ],
-    "messages": [
-        {
-            "id": 5,
-            "senderId": 1,
-            "receiverId": 3,
-            "date": 1543044264,
-            "content": "Hej, co tam?",
-            "read": true 
-        },
-        {
-            "id": 6,
-            "senderId": 3,
-            "receiverId": 1,
-            "date": 1543044264,
-            "content": "Nic, jakoś zyję",
-            "read": false
-        }
-    ]
+  "projects": [
+    {
+      "id": 1,
+      "name": "Test project",
+      "description": "Pariatur sint culpa excepteur pariatur.",
+      "status": "in-progress",
+      "creator": {
+        "id": 3,
+        "email": "aa@researcher.com",
+        "firstName": "Maria",
+        "lastName": "Nowak",
+        "about": "Est mollit eiusmod veniam nostrud dolore qui.",
+        "eng": false,
+        "bsc": true,
+        "msc": true,
+        "phd": true,
+        "prof": true
+      },
+      "members": [
+        3,
+        1
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Another project",
+      "description": "Ad velit deserunt excepteur eu aliqua nostrud veniam nostrud.",
+      "status": "created",
+      "creator": {
+        "id": 2,
+        "email": "test2@researcher.com",
+        "firstName": "Jan",
+        "lastName": "Kowalski",
+        "about": "Irure ut aliqua commodo sint sit ipsum mollit minim.",
+        "eng": false,
+        "bsc": true,
+        "msc": true,
+        "phd": true,
+        "prof": false
+      },
+      "members": [
+        2
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": 1,
+      "projectId": 1,
+      "name": "Test task 1",
+      "description": "Eiusmod minim velit veniam laboris anim sunt ex laborum veniam exercitation proident dolore consequat officia.",
+      "status": "created",
+      "members": [
+        1
+      ]
+    },
+    {
+      "id": 2,
+      "projectId": 1,
+      "name": "Test task 2",
+      "description": "Deserunt sunt labore aliquip sunt laborum Lorem esse cillum.",
+      "status": "in-progress",
+      "members": [
+        3
+      ]
+    },
+    {
+      "id": 3,
+      "projectId": 2,
+      "name": "Test task 3",
+      "description": "Ex mollit elit et fugiat proident.",
+      "status": "created",
+      "members": []
+    },
+    {
+      "id": 4,
+      "projectId": 1,
+      "name": "Test task 4",
+      "description": "Elit laborum nostrud ea eu ex eiusmod sunt aute occaecat minim nulla ea.",
+      "status": "created",
+      "members": [
+        2
+      ]
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "email": "test@researcher.com",
+      "firstName": "Test",
+      "lastName": "User",
+      "about": "Sint deserunt qui ex laboris irure deserunt nostrud aliquip.",
+      "eng": true,
+      "bsc": true,
+      "msc": false,
+      "phd": false,
+      "prof": false
+    },
+    {
+      "id": 2,
+      "email": "test2@researcher.com",
+      "firstName": "Jan",
+      "lastName": "Kowalski",
+      "about": "Irure ut aliqua commodo sint sit ipsum mollit minim.",
+      "eng": false,
+      "bsc": true,
+      "msc": true,
+      "phd": true,
+      "prof": false
+    },
+    {
+      "id": 3,
+      "email": "aa@researcher.com",
+      "firstName": "Maria",
+      "lastName": "Nowak",
+      "about": "Est mollit eiusmod veniam nostrud dolore qui.",
+      "eng": false,
+      "bsc": true,
+      "msc": true,
+      "phd": true,
+      "prof": true
+    }
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "name": "Grupa naukowa #1",
+      "description": "Exercitation minim reprehenderit consequat labore velit anim magna nisi ex velit minim cupidatat est.",
+      "creatorId": 3,
+      "members": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Grupa alternatywna",
+      "description": "Loool",
+      "creatorId": 2,
+      "members": [
+        2
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "id": 5,
+      "senderId": 1,
+      "receiverId": 3,
+      "date": 1543044264,
+      "content": "Hej, co tam?",
+      "read": true
+    },
+    {
+      "id": 6,
+      "senderId": 3,
+      "receiverId": 1,
+      "date": 1543044264,
+      "content": "Nic, jakoś zyję",
+      "read": false
+    }
+  ]
 }
