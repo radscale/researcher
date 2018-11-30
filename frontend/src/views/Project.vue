@@ -67,7 +67,7 @@
                             no-margin
                             :item="item.creator"
                             :to="{
-                                name: 'user',
+                                name: 'profile',
                                 params: {
                                     id: item.creator.id
                                 }
