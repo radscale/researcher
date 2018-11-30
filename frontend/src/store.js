@@ -21,7 +21,6 @@ export default new Vuex.Store({
         currentProject: {  // Currently viewed project
             item: false,
             tasks: [],
-            creator: null,
             users: []
             // Add other context based data here
         },
@@ -30,6 +29,7 @@ export default new Vuex.Store({
         }
     },
     mutations: {
+        // Globals
         setProjects (state, projects) {
             state.projects = projects
         },
@@ -40,6 +40,7 @@ export default new Vuex.Store({
             state.groups = groups
         },
 
+        // Profile
         setUser (state, user) {
             // Clear user data
             state.currentUser.item = user
@@ -66,7 +67,7 @@ export default new Vuex.Store({
             )
         },
         
-
+        // Project
         setProject (state, project) {
             state.currentProject.item = project
         },
@@ -76,6 +77,14 @@ export default new Vuex.Store({
         setTasksForProject (state, tasks) {
             state.currentProject.tasks = tasks
         },
+        setUsersForProject (state, users) {  // TODO: filter on backend
+            state.currentProject.users = _.filter(
+                users,
+                item => state.currentProject.item.members.includes(item.id)
+            )
+        },
+
+        // Messaging
         setMessages (state, messages) {
             state.messages = messages
         }
@@ -134,6 +143,9 @@ export default new Vuex.Store({
                 // Supplemental
                 Vue.axios.get('projects/' + payload.id + '/tasks').then((res) => {
                     context.commit('setTasksForProject', res.data)
+                })
+                Vue.axios.get('projects/' + payload.id + '/users').then((res) => {
+                    context.commit('setUsersForProject', res.data)
                 })
             })
         },

@@ -35,6 +35,7 @@ export default {
     .section-block {
         position: relative;
         padding-top: 20px;
+        margin-bottom: 8px;
 
         &__title {
             position: absolute;
@@ -47,7 +48,7 @@ export default {
         &__actions {
             position: absolute;
             right: 8px;
-            top: 0;
+            top: 2px;
             background-color: $background-block__actions;
             padding: 0 8px;
         }

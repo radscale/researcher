@@ -80,6 +80,11 @@
                 <template slot="title">
                     <h2>Assigned users</h2>
                 </template>
+                <template slot="actions">
+                    <action-button>
+                        Add...
+                    </action-button>
+                </template>
                 <ul class="list">
                     <action-item
                         type='user'

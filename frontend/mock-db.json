@@ -26,7 +26,7 @@
       "id": 2,
       "name": "Another project",
       "description": "Ad velit deserunt excepteur eu aliqua nostrud veniam nostrud.",
-      "status": "created",
+      "status": "in-progress",
       "creator": {
         "id": 2,
         "email": "test2@researcher.com",
