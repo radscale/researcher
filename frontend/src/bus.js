@@ -11,6 +11,13 @@ export default new Vue({
                 console.error('Invalid modal invocation: %o', name)
             }
         },
+        closeModal (name) {
+            if (name in this.modals) {
+                this.modals[name].open = false;
+            } else {
+                console.error('Invalid modal invocation: %o', name)
+            }
+        },
         closeModals () {
             for (name in this.modals) {
                 this.modals[name].open = false;
@@ -48,6 +55,9 @@ export default new Vue({
                     open: false
                 },
                 logout: {
+                    open: false
+                },
+                projectAssign: {
                     open: false
                 }
             },

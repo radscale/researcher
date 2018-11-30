@@ -81,7 +81,9 @@
                     <h2>Assigned users</h2>
                 </template>
                 <template slot="actions">
-                    <action-button>
+                    <action-button
+                        @click="$bus.openModal('projectAssign')"
+                    >
                         Add...
                     </action-button>
                 </template>
@@ -102,6 +104,21 @@
                 </ul>
             </section-block>
         </div>
+
+        <modal
+            name="projectAssign"
+            cancel="Done"
+        >
+            <template slot="header">
+                <h2>Assign users to project</h2>
+            </template>
+            <template slot="content">
+                <p>Ea nulla labore ut fugiat qui nulla anim quis. Nulla dolore laborum ullamco incididunt officia quis fugiat elit. Irure culpa aliquip irure sit consequat duis. Deserunt sint non esse non non commodo ad aliqua culpa aliqua veniam. Magna anim eu laboris laborum ad laboris. Elit cillum culpa dolor aliquip anim velit reprehenderit est aliqua dolore sit consequat quis. Quis cillum anim veniam aute irure veniam enim excepteur aute magna Lorem exercitation.</p>
+                <p>Laborum consectetur incididunt ea voluptate aliqua officia fugiat adipisicing. Commodo id esse esse ullamco exercitation laboris exercitation mollit sunt. Duis do nulla cupidatat dolore eu nulla consequat deserunt cillum ex reprehenderit aliqua est. Adipisicing aliquip consectetur mollit quis adipisicing ut Lorem sit laborum deserunt incididunt commodo aliquip pariatur. Dolor et qui duis incididunt culpa sunt dolore. Enim laborum culpa consectetur esse.</p>
+                <p>Et est nostrud velit commodo id nostrud. Consectetur ullamco aliqua sit amet Lorem ullamco sit. Nulla amet est fugiat pariatur dolore laborum in. Irure magna Lorem aute nulla consequat quis sunt voluptate minim sunt elit et labore occaecat. Proident aute irure velit ad et enim adipisicing. Pariatur nulla magna ipsum in mollit pariatur Lorem commodo dolor tempor ex ullamco. Deserunt qui proident in cillum eu ad ullamco ea anim adipisicing velit enim qui consectetur.</p>
+                <p>Commodo occaecat aliqua aliquip est occaecat ex. Aliquip irure pariatur elit nostrud incididunt exercitation officia eu deserunt culpa minim. Lorem amet laborum cupidatat officia aliquip exercitation voluptate ex est quis ut nisi aliquip veniam. Sunt consequat duis ut in Lorem enim mollit eiusmod cillum incididunt ullamco dolor. Amet ut fugiat nostrud duis magna duis commodo mollit sit ut aute commodo commodo esse. Voluptate ut commodo velit dolore voluptate.</p>
+            </template>
+        </modal>
     </section>
 </template>
 
@@ -110,6 +127,7 @@ import _ from 'lodash'
 import store from '@/store'
 import bus from '@/bus'
 
+import Modal from '@/components/Modal.vue'
 import ActionItem from '@/components/ActionItem.vue'
 import ActionButton from '@/components/ActionButton.vue'
 import ActionDropdown from '@/components/ActionDropdown.vue'
@@ -132,7 +150,8 @@ export default {
         ActionItem,
         ActionButton,
         ActionDropdown,
-        SectionBlock
+        SectionBlock,
+        Modal
     },
     props: {
         id: {

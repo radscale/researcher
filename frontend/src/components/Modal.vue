@@ -40,9 +40,9 @@
                         <slot name="actions"></slot>
                         <action-button
                             @click="clickClose"
-                            @if="!forced"
+                            v-if="!forced && cancel"
                         >
-                            <span>Cancel</span>
+                            <span>{{ cancel }}</span>
                         </action-button>
                     </div>
                 </form>
@@ -70,10 +70,14 @@ export default {
         },
         submit: {
             type: Function,
-            default: () => {
-                console.log('Unassigned form submission')
+            default: ($event) => {
+                $event.preventDefault()
                 return false
             }
+        },
+        cancel: {
+            type: String,
+            default: 'Cancel'
         }
     },
     computed: {
@@ -157,6 +161,8 @@ export default {
 
         .modal__content {
             padding: 14px 18px;
+            overflow-y: scroll;
+            max-height: calc(100vh - 200px);
 
             h1 {
                 color: $foreground-modal;
