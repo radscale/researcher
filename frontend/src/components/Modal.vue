@@ -15,6 +15,9 @@
         <transition name="modal-transition">
             <div
                 class="modal__wrapper"
+                :class="{
+                    'modal__wrapper--full-size': fullSize
+                }"
                 v-if="openState"
             >
                 <form
@@ -52,6 +55,8 @@
 </template>
 
 <script>
+import Vue from 'vue'
+
 import ActionButton from '@/components/ActionButton.vue'
 
 export default {
@@ -78,6 +83,10 @@ export default {
         cancel: {
             type: String,
             default: 'Cancel'
+        },
+        fullSize: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
@@ -87,6 +96,24 @@ export default {
             },
             set: function (value) {
                 this.$bus.modals[this.name].open = value
+            }
+        }
+    },
+    watch: {
+        openState (state) {
+            
+            if (state) {
+                Vue.nextTick(() => {
+                    let elem = this.$refs.form.querySelector('[autofocus]')
+
+                    if (!elem) {
+                        elem = this.$refs.form.querySelector('input,textarea')
+                    }
+
+                    if (elem) {
+                        elem.focus()
+                    }
+                })
             }
         }
     },
@@ -115,6 +142,10 @@ export default {
     .modal {
         z-index: 40;
 
+        form {
+            height: 100%;
+        }
+
         .modal__overlay {
             z-index: 40;
             position: fixed;
@@ -138,10 +169,18 @@ export default {
             display: flex;
             flex-direction: column;
             max-width: 80%;
-            width: 500px;
+            width: $width-modal;
+
+            &--full-size {
+                height: calc(100vh - #{$offset-modal--full-size});
+            }
         }
 
         .modal__header {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
             padding: 14px 18px 8px;
             display: flex;
             flex-direction: row-reverse;
@@ -162,7 +201,8 @@ export default {
         .modal__content {
             padding: 14px 18px;
             overflow-y: scroll;
-            max-height: calc(100vh - 200px);
+            max-height: calc(100vh - #{$height-modal__header} - #{$height-modal__actions} - #{$offset-modal--full-size});
+            margin: $height-modal__header 0 $height-modal__actions;
 
             h1 {
                 color: $foreground-modal;
@@ -183,6 +223,10 @@ export default {
         }
 
         .modal__actions {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
             padding: 12px 18px 18px;
             display: flex;
             flex-direction: row-reverse;

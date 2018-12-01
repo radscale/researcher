@@ -11,6 +11,7 @@
         :value="value"
         :id="name"
         :placeholder="placeholder"
+        :autofocus="autofocus"
     >
         <template v-if="type == 'textarea'">{{value}}</template>
     </component>
@@ -56,11 +57,16 @@ export default {
             default: () => {
                 return {}
             }  
+        },
+        autofocus: {
+            type: Boolean,
+            default: false
         }
     },
     methods: {
         onChange ($event) {
-            this.validations.$touch()
+            if (typeof this.validations.$touch == 'function')
+                this.validations.$touch()
             this.$emit('change', $event)
         },
         onInput ($event) {
@@ -105,6 +111,7 @@ export default {
         outline: none;
         width: 100%;
         font-family: $font-global;
+        font-size: 14px;
 
         transition:
             color 150ms ease-in,
@@ -143,6 +150,7 @@ export default {
 
         &__wrapper {
             margin: 32px 0px 4px;
+            width: 100%;
             position: relative;
 
             label {

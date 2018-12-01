@@ -530,6 +530,8 @@ h2 {
 // Lists
 ul {
     padding: 0;
+    list-style: none;
+    width: 100%;
 }
 
 // Animations

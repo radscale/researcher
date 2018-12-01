@@ -95,11 +95,12 @@
                         :item="user"
                         :key="user.id"
                         :to="{
-                            name: 'user',
+                            name: 'profile',
                             params: {
                                 id: user.id
                             }
                         }"
+                        @click="$bus.closeModal('projectAssign')"
                     ></action-item>
                 </ul>
             </section-block>
@@ -108,15 +109,46 @@
         <modal
             name="projectAssign"
             cancel="Done"
+            full-size
         >
             <template slot="header">
                 <h2>Assign users to project</h2>
             </template>
             <template slot="content">
-                <p>Ea nulla labore ut fugiat qui nulla anim quis. Nulla dolore laborum ullamco incididunt officia quis fugiat elit. Irure culpa aliquip irure sit consequat duis. Deserunt sint non esse non non commodo ad aliqua culpa aliqua veniam. Magna anim eu laboris laborum ad laboris. Elit cillum culpa dolor aliquip anim velit reprehenderit est aliqua dolore sit consequat quis. Quis cillum anim veniam aute irure veniam enim excepteur aute magna Lorem exercitation.</p>
-                <p>Laborum consectetur incididunt ea voluptate aliqua officia fugiat adipisicing. Commodo id esse esse ullamco exercitation laboris exercitation mollit sunt. Duis do nulla cupidatat dolore eu nulla consequat deserunt cillum ex reprehenderit aliqua est. Adipisicing aliquip consectetur mollit quis adipisicing ut Lorem sit laborum deserunt incididunt commodo aliquip pariatur. Dolor et qui duis incididunt culpa sunt dolore. Enim laborum culpa consectetur esse.</p>
-                <p>Et est nostrud velit commodo id nostrud. Consectetur ullamco aliqua sit amet Lorem ullamco sit. Nulla amet est fugiat pariatur dolore laborum in. Irure magna Lorem aute nulla consequat quis sunt voluptate minim sunt elit et labore occaecat. Proident aute irure velit ad et enim adipisicing. Pariatur nulla magna ipsum in mollit pariatur Lorem commodo dolor tempor ex ullamco. Deserunt qui proident in cillum eu ad ullamco ea anim adipisicing velit enim qui consectetur.</p>
-                <p>Commodo occaecat aliqua aliquip est occaecat ex. Aliquip irure pariatur elit nostrud incididunt exercitation officia eu deserunt culpa minim. Lorem amet laborum cupidatat officia aliquip exercitation voluptate ex est quis ut nisi aliquip veniam. Sunt consequat duis ut in Lorem enim mollit eiusmod cillum incididunt ullamco dolor. Amet ut fugiat nostrud duis magna duis commodo mollit sit ut aute commodo commodo esse. Voluptate ut commodo velit dolore voluptate.</p>
+                <div class="row">
+                    <action-input
+                        v-model="userQuery"
+                        name="userQuery"
+                        placeholder="Type first, last names, titles..."
+                        autofocus
+                    >
+                        <label slot="label" for="userQuery">
+                            Filter users
+                        </label>
+                    </action-input>
+                    <transition-group
+                        name="slide"
+                        tag="ul"
+                        class="assign-list"
+                    >
+                        <li
+                            v-for="user in userQueryResults"
+                            :key="user.id"
+                        >
+                            <action-item
+                                type="user"
+                                list
+                                :item="user"
+                                :to="{
+                                    name: 'profile',
+                                    params: {
+                                        id: user.id
+                                    }
+                                }"
+                            ></action-item>
+                        </li>
+                    </transition-group>
+                </div>
             </template>
         </modal>
     </section>
@@ -131,9 +163,11 @@ import Modal from '@/components/Modal.vue'
 import ActionItem from '@/components/ActionItem.vue'
 import ActionButton from '@/components/ActionButton.vue'
 import ActionDropdown from '@/components/ActionDropdown.vue'
+import ActionInput from '@/components/ActionInput.vue'
 import SectionBlock from '@/components/SectionBlock.vue'
 
 import {STATES} from '@/dicts'
+import {parseSuffix} from '@/utils'
 
 const _fetchData = function (params, callback) {
     store.dispatch('getProject', {id: params.id}).then(callback, error => {
@@ -150,6 +184,7 @@ export default {
         ActionItem,
         ActionButton,
         ActionDropdown,
+        ActionInput,
         SectionBlock,
         Modal
     },
@@ -161,6 +196,7 @@ export default {
     },
     mounted () {
         this.status = this.item.status
+        this.fetchUsersForQuery()
     },
     beforeRouteEnter: function (to, from, next) {
         _fetchData(to.params, next)
@@ -176,6 +212,25 @@ export default {
                     status: status
                 })
             }
+        },
+        fetchUsersForQuery (query) {
+            // TODO: Do fetching and filtering on the backend
+            this.axios.get('users').then(res => {
+                this.userQueryResults = _.filter(
+                    res.data,
+                    item => {
+                        let notMember = !_.some(this.users, user => {
+                            return user.id == item.id
+                        })
+                        if (!query) {
+                            return notMember
+                        } else {
+                            let name = item.firstName + ' ' + item.lastName + ' ' + parseSuffix(item)
+                            return notMember && (name.toLowerCase().indexOf(query.toLowerCase()) > -1)
+                        }
+                    }
+                )
+            })
         }
     },
     computed: {
@@ -195,11 +250,17 @@ export default {
     watch: {
         item (newItem) {
             this.status = this.item.status
-        }
+        },
+        userQuery: 
+            _.debounce(function (query) {
+                this.fetchUsersForQuery(query)
+            }, 200)
     },
     data () {
         return {
-            status: ''
+            status: '',
+            userQuery: '',
+            userQueryResults: []
         }
     }
 }
@@ -208,7 +269,4 @@ export default {
 <style scoped lang="scss">
 @import '~@/styles/globals';
 
-.project {
-
-}
 </style>
