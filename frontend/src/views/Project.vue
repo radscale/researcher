@@ -93,33 +93,36 @@
                     tag="ul"
                     class="list"
                 >
-                    <action-item
-                        type='user'
-                        list
+                    <li
                         v-for="user in users"
-                        :item="user"
                         :key="user.id"
-                        :to="{
-                            name: 'profile',
-                            params: {
-                                id: user.id
-                            }
-                        }"
-                        @click="$bus.closeModal('projectAssign')"
                     >
-                        <template
-                            slot="actions"
-                            v-if="canManage"
+                        <action-item
+                            type='user'
+                            list
+                            :item="user"
+                            :to="{
+                                name: 'profile',
+                                params: {
+                                    id: user.id
+                                }
+                            }"
+                            @click="$bus.closeModal('projectAssign')"
                         >
-                            <action-button
-                                small
-                                @click.stop="removeUser(user)"
-                                v-if="user.id != item.creator.id"
+                            <template
+                                slot="actions"
+                                v-if="canManage"
                             >
-                                <i class="fas fa-times"></i>
-                            </action-button>
-                        </template>
-                    </action-item>
+                                <action-button
+                                    small
+                                    @click.stop="removeUser(user)"
+                                    v-if="user.id != item.creator.id"
+                                >
+                                    <i class="fas fa-times"></i>
+                                </action-button>
+                            </template>
+                        </action-item>
+                    </li>
                 </transition-group>
             </section-block>
         </div>
