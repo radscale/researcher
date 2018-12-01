@@ -33,6 +33,12 @@
         >
             {{display.status | capitalize}}
         </span>
+        <div
+            v-if="$slots.actions"
+            class="action-item__actions"
+        >
+            <slot name="actions"></slot>
+        </div>
         <transition name="fade-fast">
             <div 
                 v-if="typeof alert == 'number'"
@@ -153,6 +159,10 @@ export default {
         &__icon {
             color: $foreground-item__icon;
             margin-right: 8px;
+        }
+
+        &__actions {
+            margin: -5px -5px -5px auto;
         }
 
         &--no-background {

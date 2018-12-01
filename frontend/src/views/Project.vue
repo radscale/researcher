@@ -83,6 +83,7 @@
                 <template slot="actions">
                     <action-button
                         @click="$bus.openModal('projectAssign')"
+                        v-if="canManage"
                     >
                         Add...
                     </action-button>
@@ -101,7 +102,19 @@
                             }
                         }"
                         @click="$bus.closeModal('projectAssign')"
-                    ></action-item>
+                    >
+                        <template
+                            slot="actions"
+                            v-if="canManage"
+                        >
+                            <action-button
+                                small
+                                @click.stop=""
+                            >
+                                <i class="fas fa-times"></i>
+                            </action-button>
+                        </template>
+                    </action-item>
                 </ul>
             </section-block>
         </div>
@@ -117,7 +130,7 @@
             <template slot="content">
                 <div class="row">
                     <action-input
-                        v-model="userQuery"
+                        v-model.trim="userQuery"
                         name="userQuery"
                         placeholder="Type first, last names, titles..."
                         autofocus
@@ -145,7 +158,19 @@
                                         id: user.id
                                     }
                                 }"
-                            ></action-item>
+                            >
+                            <template
+                                slot="actions"
+                                v-if="canManage"
+                            >
+                                <action-button
+                                    small
+                                    @click.stop=""
+                                >
+                                    <i class="fas fa-plus"></i>
+                                </action-button>
+                            </template>
+                            </action-item>
                         </li>
                     </transition-group>
                 </div>
@@ -245,6 +270,10 @@ export default {
         },
         statusOptions () {
             return STATES
+        },
+        canManage () {
+            // TODO: Access rights
+            return true
         }
     },
     watch: {

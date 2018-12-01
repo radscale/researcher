@@ -5,7 +5,8 @@
         'action-button--cta': cta,
         'action-button--disabled': disabled,
         'action-button--icon': icon,
-        'action-button--faded': faded
+        'action-button--faded': faded,
+        'action-button--small': small
     }"
     @click="onClick"
 >
@@ -34,6 +35,10 @@ export default {
             default: false
         },
         faded: {
+            type: Boolean,
+            default: false
+        },
+        small: {
             type: Boolean,
             default: false
         }
@@ -75,6 +80,15 @@ export default {
             .span {
                 display: none;
             }
+        }
+
+        &--small {
+            margin: 0;
+            padding: 0;
+            line-height: 25px;
+            height: 26px;
+            min-width: 37px;
+            font-size: 13px;
         }
 
         &--cta {
