@@ -45,22 +45,9 @@
             </div>
         </transition>
     </div>
-    <!-- <select
-        :name="name"
-        ref="select-node"
-    >
-        <option
-            v-for="(label, key) in dropdownOptions"
-            :key="key"
-            :value="key"
-        >{{ label | capitalize }}</option>
-    </select> -->
     <slot
         name="label"
     ></slot>
-    <!-- <div class="action-dropdown__validation">
-        {{ validationString }}
-    </div> -->
 </div>
 </template>
 

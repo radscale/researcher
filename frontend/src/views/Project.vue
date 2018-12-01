@@ -88,7 +88,11 @@
                         Add...
                     </action-button>
                 </template>
-                <ul class="list">
+                <transition-group
+                    name="slide"
+                    tag="ul"
+                    class="list"
+                >
                     <action-item
                         type='user'
                         list
@@ -109,13 +113,14 @@
                         >
                             <action-button
                                 small
-                                @click.stop=""
+                                @click.stop="removeUser(user)"
+                                v-if="user.id != item.creator.id"
                             >
                                 <i class="fas fa-times"></i>
                             </action-button>
                         </template>
                     </action-item>
-                </ul>
+                </transition-group>
             </section-block>
         </div>
 
@@ -159,17 +164,17 @@
                                     }
                                 }"
                             >
-                            <template
-                                slot="actions"
-                                v-if="canManage"
-                            >
-                                <action-button
-                                    small
-                                    @click.stop=""
+                                <template
+                                    slot="actions"
+                                    v-if="canManage"
                                 >
-                                    <i class="fas fa-plus"></i>
-                                </action-button>
-                            </template>
+                                    <action-button
+                                        small
+                                        @click.stop="addUser(user)"
+                                    >
+                                        <i class="fas fa-plus"></i>
+                                    </action-button>
+                                </template>
                             </action-item>
                         </li>
                     </transition-group>
@@ -255,6 +260,37 @@ export default {
                         }
                     }
                 )
+            })
+        },
+        addUser (user) {
+            let newMembers = Array.from(this.item.members)
+            newMembers.push(user.id)
+
+            this.$store.dispatch('setProjectMembers', {
+                id: this.item.id,
+                members: newMembers
+            }).then(res => {
+                this.$bus.pushMessage({
+                    type: 'success',
+                    content: 'Successfully assigned ' + user.firstName + ' ' + user.lastName + ' to the project.'
+                })
+
+                this.fetchUsersForQuery(this.userQuery)
+            })
+        },
+        removeUser (user) {
+            this.$store.dispatch('setProjectMembers', {
+                id: this.item.id,
+                members: _.filter(this.item.members, memberId => {
+                    return memberId != user.id
+                })
+            }).then(res => {
+                this.$bus.pushMessage({
+                    type: 'success',
+                    content: 'Successfully removed ' + user.firstName + ' ' + user.lastName + ' from the project.'
+                })
+
+                this.fetchUsersForQuery(this.userQuery)
             })
         }
     },

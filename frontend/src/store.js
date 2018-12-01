@@ -78,10 +78,10 @@ export default new Vuex.Store({
             state.currentProject.tasks = tasks
         },
         setUsersForProject (state, users) {  // TODO: filter on backend
-            state.currentProject.users = _.filter(
+            Vue.set(state.currentProject, 'users', _.filter(
                 users,
                 item => state.currentProject.item.members.includes(item.id)
-            )
+            ))
         },
 
         // Messaging
@@ -137,15 +137,16 @@ export default new Vuex.Store({
                 Vue.axios.get('projects/' + payload.id).then(res => {
                     context.commit('setProject', res.data)
                     resolve(res)
+
+                    // Supplemental
+                    Vue.axios.get('projects/' + payload.id + '/tasks').then((res) => {
+                        context.commit('setTasksForProject', res.data)
+                    })
+                    Vue.axios.get('projects/' + payload.id + '/users').then((res) => {
+                        context.commit('setUsersForProject', res.data)
+                    })
                 }, err => {
                     reject(err)
-                })
-                // Supplemental
-                Vue.axios.get('projects/' + payload.id + '/tasks').then((res) => {
-                    context.commit('setTasksForProject', res.data)
-                })
-                Vue.axios.get('projects/' + payload.id + '/users').then((res) => {
-                    context.commit('setUsersForProject', res.data)
                 })
             })
         },
@@ -155,6 +156,22 @@ export default new Vuex.Store({
                     status: payload.status
                 }).then(res => {
                     context.commit('setProject', res.data)
+                    resolve(res)
+                }, err => {
+                    reject(err)
+                })
+            })
+        },
+        setProjectMembers (context, payload = {}) {
+            return new Promise((resolve, reject) => {
+                Vue.axios.patch('projects/' + payload.id, {
+                    members: payload.members
+                }).then(res => {
+                    context.commit('setProject', res.data)
+                    // Load new user data
+                    Vue.axios.get('projects/' + payload.id + '/users').then((res) => {
+                        context.commit('setUsersForProject', res.data)
+                    })
                     resolve(res)
                 }, err => {
                     reject(err)
