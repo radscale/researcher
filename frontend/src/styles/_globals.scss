@@ -43,10 +43,15 @@ $border-block--highlight: 1px solid #d1c5f7;
 $background-popup: #ffffff;
 $foreground-popup: #393546;
 $border-popup: 1px solid #e0e0e0;
+$shadow-popup: 0 6px 16px 0 rgba(black, 0.15);
 
 $background-popup--error: #ffffff;
 $foreground-popup--error: #e04b4b;
-$border-popup--error: 1px solid #f5d9d9;
+$border-popup--error: 1px solid #f0caca;
+
+$background-popup--success: #ffffff;
+$foreground-popup--success: #4a770e;
+$border-popup--success: 1px solid #e7f8d3;
 
 // Buttons
 $background-button: transparent;

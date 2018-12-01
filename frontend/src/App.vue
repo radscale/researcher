@@ -26,7 +26,7 @@
                     :forced="message.forced"
                     @close="$bus.removeMessage(key)"
                 >
-                    {{ message.content }}
+                    <p v-html="message.content"></p>
                 </popup>
             </transition-group>
         </div>

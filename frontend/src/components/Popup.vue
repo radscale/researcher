@@ -66,9 +66,20 @@ export default {
         color: $foreground-popup;
         border: $border-popup;
         border-radius: 8px;
+        box-shadow: $shadow-popup;
 
         display: flex;
         align-items: baseline;
+
+        &--success {
+            color: $foreground-popup--success;
+            background-color: $background-popup--success;
+            border: $border-popup--success;
+
+            .popup__close {
+                color: $foreground-popup--success;
+            }
+        }
 
         &--error {
             color: $foreground-popup--error;

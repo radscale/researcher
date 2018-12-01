@@ -275,7 +275,7 @@ export default {
             }).then(res => {
                 this.$bus.pushMessage({
                     type: 'success',
-                    content: 'Successfully assigned ' + user.firstName + ' ' + user.lastName + ' to the project.'
+                    content: 'Successfully assigned <strong>' + user.firstName + ' ' + user.lastName + '</strong> to the project.'
                 })
 
                 this.fetchUsersForQuery(this.userQuery)
@@ -290,7 +290,7 @@ export default {
             }).then(res => {
                 this.$bus.pushMessage({
                     type: 'success',
-                    content: 'Successfully removed ' + user.firstName + ' ' + user.lastName + ' from the project.'
+                    content: 'Successfully removed <strong>' + user.firstName + ' ' + user.lastName + '</strong> from the project.'
                 })
 
                 this.fetchUsersForQuery(this.userQuery)
