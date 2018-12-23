@@ -12,10 +12,11 @@ public class Message {
     public Message() {
     }
 
-    public Message(String text, Date date, User sender) {
+    public Message(String text, Date date, User sender, User receiver) {
         this.text = text;
         this.date = date;
         this.sender = sender;
+        this.receiver = receiver;
     }
 
     @Id
@@ -31,6 +32,14 @@ public class Message {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User sender;
+
+    public User getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User receiver;
