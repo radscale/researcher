@@ -1,5 +1,8 @@
 package com.researcher.university.domain;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
@@ -28,7 +31,7 @@ public class Task {
     private String status;
 
     @NotBlank
-    @Column(name = "Name", unique = true)
+    @Column(name = "Name")
     private String name;
 
     @NotBlank
@@ -40,6 +43,19 @@ public class Task {
 
     @Column(name = "FinishDate")
     private Date finishDate;
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "project_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Project project;
 
     public Long getId() {
         return id;
