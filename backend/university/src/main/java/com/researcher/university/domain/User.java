@@ -3,6 +3,7 @@ package com.researcher.university.domain;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Entity
 @Table(name = "User")
@@ -42,6 +43,17 @@ public class User {
     @NotBlank
     @Column(name = "Password")
     private String password;
+
+    @OneToMany
+    private List<AdHocTask> adHocTasks;
+
+    public List<AdHocTask> getAdHocTasks() {
+        return adHocTasks;
+    }
+
+    public void setAdHocTasks(List<AdHocTask> adHocTasks) {
+        this.adHocTasks = adHocTasks;
+    }
 
     public Long getId() {
         return id;

@@ -1,9 +1,10 @@
 package com.researcher.university.service;
 
+import com.researcher.university.domain.AdHocTask;
 import com.researcher.university.domain.Task;
 import com.researcher.university.exception.ResourceNotFoundException;
-import com.researcher.university.repository.ProjectRepository;
-import com.researcher.university.repository.TaskRepository;
+import com.researcher.university.repository.AdHocTaskRepository;
+import com.researcher.university.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -13,33 +14,31 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Service
-public class TaskService {
+public class AdHocTaskService {
+    @Autowired
+    private AdHocTaskRepository taskRepository;
 
     @Autowired
-    private TaskRepository taskRepository;
+    private UserRepository userRepository;
 
-    @Autowired
-    private ProjectRepository projectRepository;
-
-
-    public List<Task> getTaskForProjects(Long projectId) {
-        return taskRepository.findByProjectId(projectId);
+    public List<AdHocTask> getAdHocTaskForUser(Long userId) {
+        return taskRepository.findByUserId(userId);
     }
 
-    public Task createTask(Long projectId, @Valid Task task) {
-        return projectRepository.findById(projectId)
-                .map(project -> {
-                    task.setProject(project);
-                    List<Task> tasks = project.getTasks();
+    public AdHocTask createAdHocTask(Long userId, @Valid AdHocTask task) {
+        return userRepository.findById(userId)
+                .map(user -> {
+                    task.setOwner(user);
+                    List<AdHocTask> tasks = new LinkedList<>();
                     tasks.add(task);
-                    project.setTasks(tasks);
+                    user.setAdHocTasks(tasks);
                     return taskRepository.save(task);
-                }).orElseThrow(() -> new ResourceNotFoundException("Project not found with id " + projectId));
+                }).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + userId));
     }
 
-    public Task updateTask(Long projectId, Long taskId, @Valid Task taskRequest) {
-        if(!projectRepository.existsById(projectId)) {
-            throw new ResourceNotFoundException("Project not found with id " + projectId);
+    public AdHocTask updateAdHocTask(Long userId, Long taskId, @Valid AdHocTask taskRequest) {
+        if(!userRepository.existsById(userId)) {
+            throw new ResourceNotFoundException("User not found with id " + userId);
         }
         return taskRepository.findById(taskId)
                 .map(task -> {
@@ -48,13 +47,14 @@ public class TaskService {
                     task.setStatus(taskRequest.getStatus());
                     task.setStartDate(taskRequest.getStartDate());
                     task.setFinishDate(taskRequest.getFinishDate());
+                    task.setOwner(taskRequest.getOwner());
                     return taskRepository.save(task);
                 }).orElseThrow(() -> new ResourceNotFoundException("Task not found with id " + taskId));
     }
 
-    public ResponseEntity<?> deleteTask(Long projectId, Long taskId) {
-        if(!projectRepository.existsById(projectId)) {
-            throw new ResourceNotFoundException("Project not found with id " + projectId);
+    public ResponseEntity<?> deleteAdHocTask(Long userId, Long taskId) {
+        if(!userRepository.existsById(userId)) {
+            throw new ResourceNotFoundException("User not found with id " + userId);
         }
 
         return taskRepository.findById(taskId)
