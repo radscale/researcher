@@ -14,7 +14,6 @@ public class TaskController {
     @Autowired
     TaskService taskService;
 
-
     @GetMapping("/projects/{projectId}/tasks")
     public List<Task> getTaskForProjects(@PathVariable Long projectId) {
         return taskService.getTaskForProjects(projectId);

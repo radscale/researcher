@@ -4,8 +4,8 @@ import com.researcher.university.domain.Project;
 import com.researcher.university.exception.ResourceNotFoundException;
 import com.researcher.university.repository.ProjectRepository;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class ProjectService {
     @Autowired
     private ProjectRepository projectRepository;
 
-    public Page<Project> getAllProjects(org.springframework.data.domain.Pageable pageable) {return projectRepository.findAll(pageable); }
+    public Page<Project> getAllProjects(Pageable pageable) {return projectRepository.findAll(pageable); }
 
     public Project createProject(@Valid Project project) {
         return projectRepository.save(project);

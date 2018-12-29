@@ -3,6 +3,7 @@ package com.researcher.university.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Project")
@@ -35,6 +36,22 @@ public class Project {
 
     @Column(name = "FinishDate")
     private  Date finishDate;
+
+    @OneToMany
+    @Column(name = "Tasks")
+    private List<Task> tasks;
+
+    @OneToMany
+    @Column(name = "Comments")
+    private List<ProjectComment> projectComments;
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
 
     public Long getId() {
         return id;
@@ -74,6 +91,14 @@ public class Project {
 
     public void setFinishDate(Date finishDate) {
         this.finishDate = finishDate;
+    }
+
+    public List<ProjectComment> getProjectComments() {
+        return projectComments;
+    }
+
+    public void setProjectComments(List<ProjectComment> projectComments) {
+        this.projectComments = projectComments;
     }
 
     @Override

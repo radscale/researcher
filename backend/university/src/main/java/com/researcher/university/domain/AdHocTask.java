@@ -6,21 +6,11 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
-import java.util.List;
 
 @Entity
-@Table(name = "Task")
-public class Task {
+public class AdHocTask {
 
-    public Task() {
-    }
-
-    public Task(@NotBlank String status, @NotBlank String name, @NotBlank String description, Date startDate, Date finishDate) {
-        this.status = status;
-        this.name = name;
-        this.description = description;
-        this.startDate = startDate;
-        this.finishDate = finishDate;
+    public AdHocTask() {
     }
 
     @Id
@@ -46,36 +36,8 @@ public class Task {
     private Date finishDate;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "project_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Project project;
-
-    @OneToMany
-    private List<TaskComment> comments;
-
-    public List<TaskComment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<TaskComment> comments) {
-        this.comments = comments;
-    }
-
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private User user;
 
     public String getStatus() {
         return status;
@@ -117,4 +79,11 @@ public class Task {
         this.finishDate = finishDate;
     }
 
+    public User getOwner() {
+        return user;
+    }
+
+    public void setOwner(User user) {
+        this.user = user;
+    }
 }
