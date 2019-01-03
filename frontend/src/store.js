@@ -215,7 +215,9 @@ export default new Vuex.Store({
         // Messaging
         updateMessages (context) {
             return new Promise((resolve, reject) => {
-                Vue.axios.get('messages').then(res => {
+                Vue.axios.get('messages', {
+                    noProgress: true
+                }).then(res => {
                     context.commit('setMessages', res.data)
                     resolve(res)
                 }, err => {
