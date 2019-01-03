@@ -15,7 +15,8 @@ export default new Vuex.Store({
             item: false,
             groups: [],
             projects: [],
-            tasks: []
+            tasks: [],
+            messages: []
             // Add other context based data here
         },
         currentProject: {  // Currently viewed project
@@ -64,6 +65,15 @@ export default new Vuex.Store({
             state.currentUser.tasks = _.filter(
                 tasks,
                 item => item.members.includes(state.currentUser.item.id)
+            )
+        },
+        setUserMessages (state, messages) {
+            state.currentUser.messages = _.filter(
+                messages,
+                item => (
+                    item.senderId == state.currentUser.item.id
+                 || item.receiverId == state.currentUser.item.id
+                )
             )
         },
         
@@ -124,6 +134,19 @@ export default new Vuex.Store({
                     Vue.axios.get('tasks').then(res => { // TODO: filter
                         context.commit('setUserTasks', res.data)
                     })
+
+                    resolve(res)
+                }, err => {
+                    reject(err)
+                })
+            })
+        },
+        getMessagesForUser (context, payload = {}) {
+            return new Promise((resolve, reject) => {
+                Vue.axios.get('users/' + payload.id + '/messages', {
+                    noProgress: true
+                }).then(res => { // TODO: filter
+                    context.commit('setUserMessages', res.data)
 
                     resolve(res)
                 }, err => {

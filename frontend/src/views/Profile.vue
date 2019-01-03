@@ -17,7 +17,7 @@
                 <template slot="title">
                     <h2>Messages</h2>
                 </template>
-                <p>Message log...</p>
+                <p>Loading messages...</p>
             </section-block>
         </div>
         <div class="section__side">
@@ -100,7 +100,9 @@ import SectionBlock from '@/components/SectionBlock.vue'
 import {parseSuffix} from '@/utils.js'
 
 const _fetchData = function (params, callback) {
-    store.dispatch('getUser', {id: params.id}).then(callback, error => {
+    store.dispatch('getUser', {
+        id: params.id
+    }).then(callback, error => {
         bus.pushMessage({
             type: 'error',
             content: 'Could not load profile data.'
@@ -124,12 +126,42 @@ export default {
     mounted () {
         // this.$store.dispatch('getUser', {id: this.id})
         // this.item = this.storeItem
+
+        this.messagingCheck()
+    },
+    beforeDestroy () {
+        this.unmountMessaging()
     },
     beforeRouteEnter: function (to, from, next) {
         _fetchData(to.params, next)
     },
     beforeRouteUpdate: function (to, from, next) {
         _fetchData(to.params, next)
+    },
+    methods: {
+        mountMessaging () {
+            this.unmountMessaging()
+            this._messagingTimeout = setTimeout(this.messagingCheck, this.$bus.messagingPollTimeout)
+        },
+        messagingCheck () {
+            this.$store.dispatch('getMessagesForUser', {
+                id: this.item.id
+            }).then(() => {}, err => {
+                bus.pushMessage({
+                    type: 'error',
+                    content: 'Could not fetch messages for <strong>' + this.item.firstName + ' ' + this.item.lastName + '</strong>.'
+                })
+                this.unmountMessaging()
+            })
+
+            this.mountMessaging()
+        },
+        unmountMessaging () {
+            if (this._messagingTimeout !== null) {
+                clearTimeout(this._messagingTimeout)
+                this._messagingTimeout = null
+            }
+        }
     },
     computed: {
         item () {
@@ -176,6 +208,11 @@ export default {
                     }
                 }
             )
+        }
+    },
+    data () {
+        return {
+            _messagingTimeout: null
         }
     }
 }

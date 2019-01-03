@@ -211,7 +211,9 @@ export default {
 
         // Set up axios interceptors
         axios.interceptors.request.use(config => {
-            this.$Progress.start()
+            if (!config.noProgress) {
+                this.$Progress.start()
+            }
             return config
         })
         axios.interceptors.response.use(response => {

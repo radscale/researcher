@@ -96,6 +96,45 @@ export default {
             return this.$route.name == 'profile'
                 && this.user.id == this.$route.params.id
         }
+    },
+    watch: {
+        user (user) {
+            if (user.id) {
+                // User is logged in, let's begin message polling
+                this.globalMessagingCheck()
+            }
+        }
+    },
+    beforeDestroy () {
+        unmountGlobalMessaging()
+    },
+    methods: {
+        mountGlobalMessaging () {
+            this.unmountGlobalMessaging()
+            this._globalMessagingTimeout = setTimeout(this.globalMessagingCheck, this.$bus.globalMessagingPollTimeout)
+        },
+        globalMessagingCheck () {
+            this.$store.dispatch('updateMessages').then(() => {}, err => {
+                this.$bus.pushMessage({
+                    type: 'error',
+                    content: 'Could not fetch any messages.'
+                })
+                this.unmountGlobalMessaging()
+            })
+
+            this.mountGlobalMessaging()
+        },
+        unmountGlobalMessaging () {
+            if (this._globalMessagingTimeout !== null) {
+                clearTimeout(this._globalMessagingTimeout)
+                this._globalMessagingTimeout = null
+            }
+        }
+    },
+    data () {
+        return {
+            _globalMessagingTimeout: null
+        }
     }
 }
 </script>

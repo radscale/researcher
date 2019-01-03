@@ -1,6 +1,8 @@
 import Vue from 'vue'
 
 const MESSAGE_TIMEOUT = 5000
+const MESSAGING_POLL_TIMEOUT = 1000
+const GLOBAL_MESSAGING_POLL_TIMEOUT = 5000
 
 export default new Vue({
     methods: {
@@ -65,7 +67,9 @@ export default new Vue({
             _messageCount: 0,
             loading: true,
             loadingLabel: 'Loading...',
-            scrollHeight: 0
+            scrollHeight: 0,
+            messagingPollTimeout: MESSAGING_POLL_TIMEOUT,
+            globalMessagingPollTimeout: GLOBAL_MESSAGING_POLL_TIMEOUT
         }
     }
 });
