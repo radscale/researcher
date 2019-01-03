@@ -1,2 +1,2 @@
 # researcher
-Web platform for academic research group management.
+Web platform for academic research group management. 
