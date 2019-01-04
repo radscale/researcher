@@ -11,12 +11,20 @@ Vue.use(VueMq, {
     }
 });
 
+// Moment
+import VueMoment from 'vue-moment'
+Vue.use(VueMoment)
+
+// Smooth scroll
+var VueSmoothScroll = require('vue-smoothscroll')
+Vue.use(VueSmoothScroll)
+
 // Event bus
 import bus from './bus.js'
 Object.defineProperties(Vue.prototype, {
     $bus: {
         get: function() {
-            return bus;
+            return bus
         }
     }
 });

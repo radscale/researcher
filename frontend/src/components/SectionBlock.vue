@@ -58,6 +58,7 @@ export default {
             border: $border-block;
             padding: 8px 16px;
             background-color: $background-block;
+            height: 100%;
         }
 
         &--highlight {

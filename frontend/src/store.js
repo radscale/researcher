@@ -224,6 +224,22 @@ export default new Vuex.Store({
                     reject(err)
                 })
             })
+        },
+        sendMessage (context, payload = {}) {
+            return new Promise((resolve, reject) => {
+                // TODO: Validate and fill messaging on backend
+                Vue.axios.post('messages', {
+                    senderId: payload.senderId,
+                    receiverId: payload.receiverId,
+                    date: +(new Date()),
+                    read: false,
+                    content: payload.content
+                }).then(res => {
+                    resolve(res)
+                }, err => {
+                    reject(err)
+                })
+            })
         }
     }
 })

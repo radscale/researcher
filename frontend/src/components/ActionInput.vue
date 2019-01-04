@@ -8,10 +8,13 @@
         }"
         @change="onChange($event)"
         @input="onInput($event)"
+        @keydown.enter="onEnter($event)"
         :value="value"
         :id="name"
         :placeholder="placeholder"
         :autofocus="autofocus"
+        :disabled="disabled"
+        ref="input"
     >
         <template v-if="type == 'textarea'">{{value}}</template>
     </component>
@@ -70,7 +73,21 @@ export default {
             this.$emit('change', $event)
         },
         onInput ($event) {
+            if (this.disabled) {
+                $event.preventDefault()
+                return
+            }
             this.$emit('input', $event.target.value)    
+        },
+        onEnter ($event) {
+            this.$emit('enter', $event.target.value)
+        }
+    },
+    watch: {
+        value () {
+            if (!this.value) {
+                this.$refs.input.value = ''
+            }
         }
     },
     computed: {

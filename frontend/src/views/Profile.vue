@@ -15,9 +15,12 @@
             </section-block>
             <section-block v-if="!isMe">
                 <template slot="title">
-                    <h2>Messages</h2>
+                    <h2>Direct messaging</h2>
                 </template>
-                <p>Loading messages...</p>
+                <action-messaging
+                    type="user"
+                    :item="item"
+                ></action-messaging>
             </section-block>
         </div>
         <div class="section__side">
@@ -95,6 +98,7 @@ import bus from '@/bus.js'
 
 import ActionItem from '@/components/ActionItem.vue'
 import ActionButton from '@/components/ActionButton.vue'
+import ActionMessaging from '@/components/ActionMessaging.vue'
 import SectionBlock from '@/components/SectionBlock.vue'
 
 import {parseSuffix} from '@/utils.js'
@@ -115,6 +119,7 @@ export default {
     components: {
         ActionItem,
         ActionButton,
+        ActionMessaging,
         SectionBlock
     },
     props: {
@@ -123,45 +128,11 @@ export default {
             required: true
         }
     },
-    mounted () {
-        // this.$store.dispatch('getUser', {id: this.id})
-        // this.item = this.storeItem
-
-        this.messagingCheck()
-    },
-    beforeDestroy () {
-        this.unmountMessaging()
-    },
     beforeRouteEnter: function (to, from, next) {
         _fetchData(to.params, next)
     },
     beforeRouteUpdate: function (to, from, next) {
         _fetchData(to.params, next)
-    },
-    methods: {
-        mountMessaging () {
-            this.unmountMessaging()
-            this._messagingTimeout = setTimeout(this.messagingCheck, this.$bus.messagingPollTimeout)
-        },
-        messagingCheck () {
-            this.$store.dispatch('getMessagesForUser', {
-                id: this.item.id
-            }).then(() => {}, err => {
-                bus.pushMessage({
-                    type: 'error',
-                    content: 'Could not fetch messages for <strong>' + this.item.firstName + ' ' + this.item.lastName + '</strong>.'
-                })
-                this.unmountMessaging()
-            })
-
-            this.mountMessaging()
-        },
-        unmountMessaging () {
-            if (this._messagingTimeout !== null) {
-                clearTimeout(this._messagingTimeout)
-                this._messagingTimeout = null
-            }
-        }
     },
     computed: {
         item () {
