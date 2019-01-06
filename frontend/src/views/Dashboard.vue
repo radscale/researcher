@@ -6,7 +6,7 @@
         <div class="section__main">
             <section-block>
                 <template slot="title">
-                    <h2>Projects</h2>
+                    <h2>Available projects</h2>
                 </template>
                 <ul class="list">
                     <action-item

@@ -16,10 +16,18 @@
             @click="$router.push({path: '/'})"
         ></div>
         <action-button
-            v-if="$auth.check() && $route.name != 'home'"
+            v-if="$auth.check()"
+            :faded="$route.name == 'home'"
             @click="$router.push({path: '/'})"
         >
             Dashboard
+        </action-button>
+        <action-button
+            v-if="$auth.check()"
+            :faded="$route.name == 'scheduling'"
+            @click="$router.push({path: '/scheduling'})"
+        >
+            Scheduling
         </action-button>
     </div>
     <div class="navbar__right">

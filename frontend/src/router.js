@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from '@/views/Home.vue'
+import Scheduling from '@/views/Scheduling.vue'
 import Profile from '@/views/Profile.vue'
 import Project from '@/views/Project.vue'
 import Task from '@/views/Task.vue'
@@ -14,6 +15,11 @@ export default new Router({
             path: '/',
             name: 'home',
             component: Home
+        },
+        {
+            path: '/scheduling',
+            name: 'scheduling',
+            component: Scheduling
         },
         {
             path: '/profile/:id',

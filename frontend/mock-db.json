@@ -197,5 +197,28 @@
       "content": "Nic, jakoś zyję",
       "read": false
     }
+  ],
+  "meetings": [
+    {
+      "id": 1,
+      "name": "Example meeting",
+      "description": "This is an example meeting with an example description.",
+      "location": "D-2 117",
+      "startDate": 1549810800000,
+      "endDate": 1549818000000,
+      "status": 0,
+      "creator": {
+        "id": 3,
+        "email": "aa@researcher.com",
+        "firstName": "Maria",
+        "lastName": "Nowak",
+        "about": "Est mollit eiusmod veniam nostrud dolore qui.",
+        "eng": false,
+        "bsc": true,
+        "msc": true,
+        "phd": true,
+        "prof": true
+      }
+    }
   ]
 }

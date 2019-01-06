@@ -414,6 +414,11 @@ section {
         }
     }
 
+    &__full-width {
+        width: 100%;
+        flex-basis: 100%;
+    }
+
     &__main {
         flex-basis: 0;
         flex-grow: 1;

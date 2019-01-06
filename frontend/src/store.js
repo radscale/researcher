@@ -10,6 +10,8 @@ export default new Vuex.Store({
         users: [],  // Available users
         groups: [],  // Available groups
         messages: [],  // Message history for the logged in user
+        meetings: [],  // Meetings for the current user
+        invitations: [],  // Invitations for the current user
 
         currentUser: {  // Currently viewed user
             item: false,
@@ -97,6 +99,11 @@ export default new Vuex.Store({
         // Messaging
         setMessages (state, messages) {
             state.messages = messages
+        },
+
+        // Scheduling
+        setMeetings (state, meetings) {
+            state.meetings = meetings
         }
     },
     actions: {
@@ -235,6 +242,18 @@ export default new Vuex.Store({
                     read: false,
                     content: payload.content
                 }).then(res => {
+                    resolve(res)
+                }, err => {
+                    reject(err)
+                })
+            })
+        },
+        // Scheduling
+        getMeetings (context, payload = {}) {
+            return new Promise((resolve, reject) => {
+                // TODO: Get relevant scheduling events on backend
+                Vue.axios.get('meetings').then(res => {
+                    context.commit('setMeetings', res.data)
                     resolve(res)
                 }, err => {
                     reject(err)

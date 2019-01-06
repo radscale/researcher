@@ -33,6 +33,12 @@
         >
             {{display.status | capitalize}}
         </span>
+        <span
+            v-else-if="list && type == 'meeting'"
+            class="action-item__status"
+        >
+            {{display.status | moment('YYYY-MM-DD')}}
+        </span>
         <div
             v-if="$slots.actions"
             class="action-item__actions"
@@ -104,23 +110,25 @@ export default {
     },
     computed: {
         display () {
-            let display = {
-                icon: 'fas '
-            }
+            let display = {}
 
             if (this.type == 'user') {
-                display.icon += 'fa-user'
+                display.icon = 'fas fa-user'
                 display.name = this.item.firstName + ' ' + this.item.lastName
                 display.suffix = parseSuffix(this.item)
             } else if (this.type == 'project') {
-                display.icon += 'fa-project-diagram'
+                display.icon = 'fas fa-project-diagram'
                 display.name = this.item.name
             } else if (this.type == 'task' || this.type == 'adhoc') {
-                display.icon += 'fa-scroll'
+                display.icon = 'fas fa-scroll'
                 display.name = this.item.name
             } else if (this.type == 'group') {
-                display.icon += 'fa-users'
+                display.icon = 'fas fa-users'
                 display.name = this.item.name
+            } else if (this.type == 'meeting') {
+                display.icon = 'far fa-clock'
+                display.name = this.item.name
+                display.status = this.item.startDate
             }
 
             if (['project', 'task', 'ad-hoc'].includes(this.type)) {
@@ -230,6 +238,7 @@ export default {
             font-weight: 600;
             text-overflow: ellipsis;
             /* height: 24px; */
+            font-size: 16px;
             overflow: hidden;
             white-space: nowrap;
         }
